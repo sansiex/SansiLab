@@ -13,30 +13,8 @@
         </action>
     </package>
 
-    <package name="log" extends="json-default" namespace="/log">
-        <action name="write" class="com.dianping.sansi.moviecrawler.master.action.LogAction" method="write">
-            <result type="json"/>
-        </action>
-
-        <action name="load" class="com.dianping.sansi.moviecrawler.master.action.LogAction" method="load">
-            <result type="json"/>
-        </action>
-    </package>
-
-    <package name="controller" extends="json-default" namespace="/controller">
-        <action name="connect" class="com.dianping.sansi.moviecrawler.master.action.ControllerAction" method="connect">
-            <result type="json"/>
-        </action>
-
-        <action name="touch" class="com.dianping.sansi.moviecrawler.master.action.ControllerAction" method="touch">
-            <result type="json"/>
-        </action>
-
-        <action name="finish" class="com.dianping.sansi.moviecrawler.master.action.ControllerAction" method="finish">
-            <result type="json"/>
-        </action>
-
-        <action name="startTask" class="com.dianping.sansi.moviecrawler.master.action.ControllerAction" method="startTask">
+    <package name="test" extends="json-default" namespace="/test">
+        <action name="broadcast" class="com.dianping.sansi.sansilab.action.TestAction" method="broadcast">
             <result type="json"/>
         </action>
     </package>

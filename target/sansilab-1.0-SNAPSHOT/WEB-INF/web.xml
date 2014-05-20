@@ -16,6 +16,16 @@
         </param-value>
     </context-param>
 
+    <servlet>
+        <servlet-name>pushlet</servlet-name>
+        <servlet-class>nl.justobjects.pushlet.servlet.Pushlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>pushlet</servlet-name>
+        <url-pattern>/pushlet.srv</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>struts2</filter-name>
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
