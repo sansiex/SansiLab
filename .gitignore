@@ -47,6 +47,7 @@ combo/
 reference/
 jscoverage_lib/
 temp/
+target/
 
 # Java
 .class
