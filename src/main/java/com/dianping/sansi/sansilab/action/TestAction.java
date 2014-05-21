@@ -14,12 +14,12 @@ public class TestAction  extends ActionSupport {
 
     public String broadcast(){
         Timer t=new Timer();
-        t.scheduleAtFixedRate(new TimerTask() {
+        t.schedule(new TimerTask() {
             @Override
             public void run() {
                 myBroadcast();
             }
-        },0,1000);
+        },1000);
         return SUCCESS;
     }
 

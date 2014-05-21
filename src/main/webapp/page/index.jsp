@@ -32,9 +32,6 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">Sansi Laboratory</a>
-                    <hr>
-                    <button onclick="testPushlet()">pushlet</button>
-                    <textarea id="txt"></textarea>
                 </div>
                 <div class="navbar-collapse collapse">
                     <form class="navbar-form navbar-right" role="form">
@@ -54,6 +51,9 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>Welcome to Sansi Laboratory!</h1>
+                <hr>
+                <button type="button" class="btn btn-primary" onclick="testPushlet()">pushlet</button>
+                <textarea id="txt" style="width:800px;height: 400px"></textarea>
                 <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
                 <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
             </div>

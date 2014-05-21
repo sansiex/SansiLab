@@ -11,7 +11,8 @@ var count=0;
 function display(content){
     var txt=$('#txt')[0];
     count++;
-    txt.innerText=content+count;;
+    var o=txt.innerHTML;
+    txt.innerHTML=o+content+count;;
 }
 
 function testPushlet(){

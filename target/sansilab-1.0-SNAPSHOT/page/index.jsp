@@ -9,31 +9,17 @@
 
 <html>
     <head>
-<<<<<<< HEAD
         <base href="<%=request.getContextPath()%>">
         <title>Sansi Laboratory</title>
 
-        <script src="/js/lib/jquery-1.11.0.min.js"></script>
-        <script src="/js/lib/ajax-pushlet-client.js"></script>
-        <script src="/js/utils/http.js"></script>
-        <script src="/js/index.js"></script>
+        <%@ include file="common/ref.jsp" %>
+        <link href="css/index.css" rel="stylesheet">
+
+        <script src="js/index.js"></script>
         <script type="text/javascript">
             PL._init();
             PL.joinListen('/myevent/msg');
         </script>
-    </head>
-    <body>
-
-        <h1>Sansi Laboratory</h1>
-        <hr>
-        <button onclick="testPushlet()">pushlet</button>
-        <textarea id="txt"></textarea>
-=======
-        <title>Sansi Laboratory</title>
-
-        <%@ include file="common/ref.jsp" %>
-
-        <link href="css/index.css" rel="stylesheet">
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -65,6 +51,9 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>Welcome to Sansi Laboratory!</h1>
+                <hr>
+                <button onclick="testPushlet()">pushlet</button>
+                <textarea id="txt" style="width:800px;height: 400px"></textarea>
                 <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
                 <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
             </div>
@@ -96,6 +85,5 @@
                 <p>&copy; Company 2013</p>
             </footer>
         </div> <!-- /container -->
->>>>>>> 16c6cbd797ed90584aaa472a18fc691cf4b964b0
     </body>
 </html>
