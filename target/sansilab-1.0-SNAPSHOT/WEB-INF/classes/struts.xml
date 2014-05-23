@@ -18,5 +18,15 @@
             <result type="json"/>
         </action>
     </package>
+
+    <package name="file" extends="json-default" namespace="/file">
+        <action name="listDir" class="com.dianping.sansi.sansilab.action.FileAction" method="listDir">
+            <result type="json"/>
+        </action>
+
+        <action name="listRoots" class="com.dianping.sansi.sansilab.action.FileAction" method="listRoots">
+            <result type="json"/>
+        </action>
+    </package>
 </struts>
  	

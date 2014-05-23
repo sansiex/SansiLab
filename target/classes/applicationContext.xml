@@ -106,8 +106,7 @@ maxStatementsPerConnection均为0，则缓存被关闭。默认为0； -->
         </property>
     </bean>
 
-    <!--
-    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
         <property name="beanNames">
             <list>
                 <value>logService</value>
@@ -119,27 +118,35 @@ maxStatementsPerConnection均为0，则缓存被关闭。默认为0； -->
             </list>
         </property>
     </bean>
-    -->
 
-    <!-- action, service and dao
-    <bean id="logAction" class="com.dianping.sansi.moviecrawler.master.action.LogAction">
+    <!-- action, service and dao -->
+    <bean id="baseAction" class="com.dianping.sansi.sansilab.action.BaseAction">
         <property name="logService">
             <ref bean="logService" />
         </property>
     </bean>
 
     <bean id="logService"
-          class="com.dianping.sansi.moviecrawler.master.service.LogService">
+          class="com.dianping.sansi.sansilab.service.LogService">
         <property name="logEntryDao">
             <ref bean="logEntryDao" />
         </property>
     </bean>
 
     <bean id="logEntryDao"
-          class="com.dianping.sansi.moviecrawler.master.dao.LogEntryDao">
+          class="com.dianping.sansi.sansilab.dao.LogEntryDao">
         <property name="sessionFactory">
             <ref bean="sessionFactory" />
         </property>
     </bean>
-    -->
+
+    <bean id="fileAction" class="com.dianping.sansi.sansilab.action.FileAction">
+        <property name="fileService">
+            <ref bean="fileService" />
+        </property>
+    </bean>
+
+    <bean id="fileService"
+          class="com.dianping.sansi.sansilab.service.FileService">
+    </bean>
 </beans>
