@@ -14,8 +14,8 @@
 
         <%@ include file="common/ref.jsp" %>
 
-        <script src="js/lib/jquery.bootstrap.js"></script>
-        <script src="js/file.js"></script>
+        <script src="/js/lib/jquery.bootstrap.js"></script>
+        <script src="/js/file.js"></script>
         <script type="text/javascript">
             PL._init();
             PL.joinListen('/myevent/msg');

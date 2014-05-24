@@ -18,7 +18,7 @@ public class FileAction extends BaseAction {
     FileService fileService;
 
     //input params
-    String dir;
+    String path;
 
     //ouput params
     List<HashMap<String,Object>> fileList;
@@ -26,7 +26,7 @@ public class FileAction extends BaseAction {
 
     public String listDir(){
         try {
-            fileList= fileService.listDirectory(dir);
+            fileList= fileService.listDirectory(path);
         } catch (FileNotFoundException e) {
             code=CODE_FILE_NOT_FOUND;
             return SUCCESS;
@@ -52,8 +52,8 @@ public class FileAction extends BaseAction {
         return code;
     }
 
-    public void setDir(String dir) {
-        this.dir = dir;
+    public void setDir(String path) {
+        this.path = path;
     }
 
     public void setFileService(FileService fileService) {
