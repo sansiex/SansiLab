@@ -23,7 +23,7 @@ function loadRoots(){
                         usableSpace:file.usableSpace,
                         totalSpace:file.totalSpace
                     },
-                    text: file.path
+                    text: file.path+"("+(file.totalSpace-file.freeSpace)+"/"+file.totalSpace+"g)"
                 });
             }
         }

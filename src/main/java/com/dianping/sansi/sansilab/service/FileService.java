@@ -34,9 +34,9 @@ public class FileService {
             HashMap<String,Object> ent=new HashMap<String,Object>();
             ent.put("name",r.getName());
             ent.put("path",r.getPath());
-            ent.put("freeSpace",r.getFreeSpace());
-            ent.put("usableSpace",r.getUsableSpace());
-            ent.put("totalSpace",r.getTotalSpace());
+            ent.put("freeSpace",r.getFreeSpace()/1024/1024/1024);
+            ent.put("usableSpace",r.getUsableSpace()/1024/1024/1024);
+            ent.put("totalSpace",r.getTotalSpace()/1024/1024/1024);
             list.add(ent);
         }
         return list;
