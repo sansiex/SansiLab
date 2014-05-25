@@ -66,7 +66,18 @@ function loadNode(params,callback){
     })
 }
 
-function onClickText(event){}
+function onClickText(event){
+    var li=$(event.target).closest('li');
+    if(li.attr('isLeaf')!="true"){
+        return;
+    }
+    var attr=eval("("+li.attr("data-attr")+")");
+    var path=attr.path;
+
+    //var url="/file/download?path="+encodeURIComponent(path);
+    var url="/file/download";
+    http.download(url,{path:path},'post');
+}
 
 function handleErr(code){
     var data=[];

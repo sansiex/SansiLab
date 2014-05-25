@@ -4,7 +4,9 @@ import com.dianping.sansi.sansilab.component.file.FileSystemUtils;
 import com.dianping.sansi.sansilab.component.file.NotDirectoryException;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +17,7 @@ import java.util.List;
  */
 public class FileService {
     public List<HashMap<String,Object>> listDirectory(String path) throws FileNotFoundException, NotDirectoryException, AccessDeniedException {
+        path=transformPath(path);
         File[] files= FileSystemUtils.listDir(path);
         ArrayList<HashMap<String,Object>> list=new ArrayList<>(files.length);
         for(File f:files){
@@ -40,5 +43,15 @@ public class FileService {
             list.add(ent);
         }
         return list;
+    }
+
+    public InputStream getFileInputStream(String path) throws FileNotFoundException {
+        path=transformPath(path);
+        return new FileInputStream(new File(path));
+    }
+
+    private String transformPath(String path){
+        System.out.println("request:"+path);
+        return path;
     }
 }

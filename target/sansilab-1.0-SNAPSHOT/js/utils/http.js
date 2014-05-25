@@ -36,3 +36,27 @@ http.get=function(url,params,callback){
 http.post=function(url,params,callback){
     http.ajax(url,"post",params,callback);
 }
+
+http.download = function(url, data, method){
+    // 获得url和data
+    if( url && data ){
+        // data 是 string 或者 array/object
+        var inputs = '';
+        if(typeof data == 'string'){
+            jQuery.each(data.split('&'), function(){
+                var pair = this.split('=');
+                inputs+='<input type="hidden" name="'+ pair[0] +'" value="'+ encodeURIComponent(pair[1]) +'" />';
+            });
+        }else {
+            for(var k in data){
+                var v=data[k];
+                inputs+='<input type="hidden" name="'+ k +'" value="'+ encodeURIComponent(v) +'" />';
+            }
+        }
+        // 把参数组装成 form的  input
+
+        // request发送请求
+        jQuery('<form action="'+ url +'" method="'+ (method||'post') +'">'+inputs+'</form>')
+            .appendTo('body').submit().remove();
+    };
+};

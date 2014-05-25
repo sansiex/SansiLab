@@ -19,13 +19,24 @@
         </action>
     </package>
 
-    <package name="file" extends="json-default" namespace="/file">
-        <action name="listDir" class="com.dianping.sansi.sansilab.action.FileAction" method="listDir">
+    <package name="file" extends="json-default,struts-default" namespace="/file">
+        <action name="listDir" class="com.dianping.sansi.sansilab.action.DirectoryAction" method="listDir">
             <result type="json"/>
         </action>
 
-        <action name="listRoots" class="com.dianping.sansi.sansilab.action.FileAction" method="listRoots">
+        <action name="listRoots" class="com.dianping.sansi.sansilab.action.DirectoryAction" method="listRoots">
             <result type="json"/>
+        </action>
+
+        <action name="download" class="com.dianping.sansi.sansilab.action.FileAction" method="download">
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">
+                    attachment;filename="${fileName}"
+                </param>
+                <param name="bufferSize">4096</param>
+            </result>
         </action>
     </package>
 </struts>

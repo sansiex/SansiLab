@@ -85,8 +85,8 @@ dtree.createChild=function(data, tree){
         li.attr("data-attr",JSON.stringify(data.attributes));
     }
     var a=$("<a class='tree-node'>"+data.text+"</a>");
-    if(onClickText!=null){
-        a.click(onClickText);
+    if(tree.onClickText!=null){
+        a.click(tree.onClickText);
     }
     if(data.attributes!=null){
         li.attr('attributes',JSON.stringify(data.attributes));

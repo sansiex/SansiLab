@@ -5,7 +5,7 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * Created by sansi on 2014/5/9.
  */
-public class PageAction extends ActionSupport {
+public class PageAction extends BaseAction {
     private String page;
 
     private String forward;

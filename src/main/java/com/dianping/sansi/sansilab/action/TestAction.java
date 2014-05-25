@@ -10,7 +10,7 @@ import java.util.TimerTask;
 /**
  * Created by lenovo on 2014/5/20.
  */
-public class TestAction  extends ActionSupport {
+public class TestAction  extends BaseAction {
 
     public String broadcast(){
         Timer t=new Timer();

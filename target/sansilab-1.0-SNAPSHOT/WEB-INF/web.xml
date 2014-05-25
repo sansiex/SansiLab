@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <display-name>MovieCrawlerMaster</display-name>
+    <display-name>Sansi Lab</display-name>
     <welcome-file-list>
-        <welcome-file>page/index.jsp</welcome-file>
+        <welcome-file>page/page?page=index</welcome-file>
     </welcome-file-list>
 
     <context-param>

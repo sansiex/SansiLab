@@ -1,64 +1,56 @@
 package com.dianping.sansi.sansilab.action;
 
-import com.dianping.sansi.sansilab.component.file.NotDirectoryException;
 import com.dianping.sansi.sansilab.service.FileService;
-import org.apache.struts2.json.annotations.JSON;
 
-import java.io.FileNotFoundException;
-import java.nio.file.AccessDeniedException;
-import java.util.HashMap;
-import java.util.List;
+import java.io.*;
+import java.net.URLDecoder;
 
 /**
  * Created by lenovo on 2014/5/20.
  */
 public class FileAction extends BaseAction {
-    public static final int CODE_NOT_DIRECTORY=1001;
-    public static final int CODE_FILE_NOT_FOUND=1002;
-    public static final int CODE_ACCESS_DENIED=1003;
-
+    //services
     FileService fileService;
 
-    //input params
+    //output
+    InputStream inputStream;
+    String fileName;
+    int code=DirectoryAction.CODE_SUCCESS;
+
+    //input
     String path;
 
-    //ouput params
-    List<HashMap<String,Object>> fileList;
-    int code=CODE_SUCCESS;
-
-    public String listDir(){
-        try {
-            fileList= fileService.listDirectory(path);
-        } catch (FileNotFoundException e) {
-            code=CODE_FILE_NOT_FOUND;
-            return SUCCESS;
-        } catch (NotDirectoryException e) {
-            code=CODE_NOT_DIRECTORY;
-            return SUCCESS;
-        } catch (AccessDeniedException e) {
-            code=CODE_ACCESS_DENIED;
+    public String download(){
+        if(path==null){
+            code=CODE_INVALID_PARAMETER;
             return SUCCESS;
         }
+        try {
+            String d= URLDecoder.decode(path,"utf-8");
+            fileName=d.substring(d.lastIndexOf(File.separator)+1);
+            fileName=new String(fileName.getBytes("gbk"),"ISO-8859-1");
+            inputStream=fileService.getFileInputStream(d);
+        } catch (FileNotFoundException e) {
+            code=CODE_FILE_NOT_FOUND;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+//        catch (IllegalArgumentException e){
+//            code=CODE_INVALID_PARAMETER;
+//        }
         return SUCCESS;
-    }
-
-    public String listRoots(){
-        fileList= fileService.listRoots();
-        return SUCCESS;
-    }
-
-    @JSON(name="fileList")
-    public List<HashMap<String,Object>> getFileList() {
-        return fileList;
-    }
-
-    @JSON(name="code")
-    public int getCode() {
-        return code;
     }
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public InputStream getInputStream(){
+        return inputStream;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 
     public void setFileService(FileService fileService) {
