@@ -5,6 +5,7 @@ import com.dianping.sansi.sansilab.service.FileService;
 import org.apache.struts2.json.annotations.JSON;
 
 import java.io.FileNotFoundException;
+import java.nio.file.AccessDeniedException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class FileAction extends BaseAction {
     public static final int CODE_NOT_DIRECTORY=1001;
     public static final int CODE_FILE_NOT_FOUND=1002;
+    public static final int CODE_ACCESS_DENIED=1003;
 
     FileService fileService;
 
@@ -32,6 +34,9 @@ public class FileAction extends BaseAction {
             return SUCCESS;
         } catch (NotDirectoryException e) {
             code=CODE_NOT_DIRECTORY;
+            return SUCCESS;
+        } catch (AccessDeniedException e) {
+            code=CODE_ACCESS_DENIED;
             return SUCCESS;
         }
         return SUCCESS;
@@ -52,7 +57,7 @@ public class FileAction extends BaseAction {
         return code;
     }
 
-    public void setDir(String path) {
+    public void setPath(String path) {
         this.path = path;
     }
 

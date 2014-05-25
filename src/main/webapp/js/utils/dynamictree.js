@@ -12,25 +12,28 @@ dtree.createTree=function(params){
     var tree={
         id:dtree.treeId++,
         onClickText:params.onClickText,
-        loadNode:params.loadNode,
-        data:params.data
+        loadNode:params.loadNode
     };
 
-    dtree.push(tree);
+    var data=params.data;
+
+    dtree.trees.push(tree);
 
     dtree.createChildren(root,data,tree);
 }
 
 dtree.createChildren=function(ul, data, tree){
-    if(ul.getName()!='ul'){
+    if(ul.tagName!='UL'){
         console.log('The root node must be a ul.');
         return;
     }
 
+    var uln=$(ul);
+
     for(var key in data){
         var nd=data[key];
-        var li=dtree.createChild(nd, tree.onClickText, tree.onLoadNode);
-        ul.appendChild(li);
+        var li=dtree.createChild(nd, tree);
+        uln.append(li);
     }
 }
 
@@ -40,6 +43,7 @@ dtree.createChild=function(data, tree){
     var span;
     var onclick
 
+    li.attr("expanded","false");
     if(data.isLeaf==false){
         li.attr('isLeaf','false');
         span=$("<span class='glyphicon glyphicon-folder-close'></span>");
@@ -48,38 +52,35 @@ dtree.createChild=function(data, tree){
         span=$("<span class='glyphicon glyphicon-file'></span>");
     }
 
-    if(tree.loadNode==null){
-        if(data.isLeaf==false){
+    if(data.isLeaf==true){
+        onclick=function(event){};
+    }else{
+        if(tree.loadNode==null){
             onclick=function(event){
                 var target=event.target;
                 var pli=$(target).closest('li');
-                dtree.expandNode(pli);
+                dtree.switchNode(pli);
             };
         }else{
-            onclick=function(event){};
-        }
-    }else{
-        if(li.attr('ready')!='true'){
             onclick=function(event){
                 //阻止事件冒泡
                 event.stopPropagation();
                 console.log(event);
                 var target=event.target;
                 var pli=$(target).closest('li');
-                dtree.loadAndExpand(pli);
+                if(li.attr('ready')!='true'){
+                    dtree.loadAndExpand(pli,tree);
+                    li.attr('ready','true');
+                }else{
+                    dtree.switchNode(pli);
+                }
             };
-        }else{
-            onclick=function(event){
-                var target=event.target;
-                var pli=$(target).closest('li');
-                dtree.expandNode(pli);
-            }
         }
     }
 
     $(span).click(onclick);
 
-    li.appendChild(span);
+    li.append(span);
     if(data.attributes!=null){
         li.attr("data-attr",JSON.stringify(data.attributes));
     }
@@ -87,26 +88,29 @@ dtree.createChild=function(data, tree){
     if(onClickText!=null){
         a.click(onClickText);
     }
-    if(nd.attributes!=null){
-        root.attributes=nd.attributes;
+    if(data.attributes!=null){
+        li.attr('attributes',JSON.stringify(data.attributes));
     }
+    li.append(a);
 
     if(data.children!=null){
         var children=$("<ul></ul>");
         for(var k in data.children){
             var child=data.children[k];
-            var cli=dtree.createChild(child);
-            children.appendChild(cli);
+            var cli=dtree.createChild(child, tree);
+            children.append(cli);
         }
-        ul.appendChild(children);
+        ul.append(children);
     }
 
     return li;
 }
 
-dtree.loadAndExpand=function(pli){
+dtree.loadAndExpand=function(pli,tree){
+    var attrstr=pli.attr("data-attr");
+    var attr=eval('('+attrstr+')');
     var params={
-        attributes:eval(pli.attr("data-attr")),
+        attributes:attr,
         text:pli.children('a').html(),
         node:pli,
         id:pli.attr('id')
@@ -121,13 +125,23 @@ dtree.loadAndExpand=function(pli){
 };
 
 dtree.renderNodeDate=function(li, data){
-    $(li).children(ul).remove();
+    var uln=$(li).children('ul');
+    uln.remove();
     var treeId=parseInt(li.attr('treeId'));
     var tree=dtree.trees[treeId];
-    var ul=$("<ul></ul>");
+    var ul=$("<ul></ul>")[0];
     dtree.createChildren(ul,data, tree);
-    li.appendChild(ul);
+    li.append(ul);
 };
+
+dtree.switchNode=function(n){
+    var li=$(n);
+    if(li.attr("expanded")=="false"){
+        dtree.expand(n);
+    }else{
+        dtree.collapse(n);
+    }
+}
 
 dtree.expand=function(n){
     var li;
@@ -136,7 +150,11 @@ dtree.expand=function(n){
     }else{
         li=n;
     }
-    $(li).children('ul').style('display','block');
+    var ul=$(li).children('ul');
+    if(ul.length>0){
+        $(ul[0]).css('display','block');
+    }
+    li.attr("expanded","true");
 }
 
 dtree.collapse=function(n){
@@ -146,5 +164,6 @@ dtree.collapse=function(n){
     }else{
         li=n;
     }
-    $(li).children('ul').style('display','none');
+    $(li).children('ul').css('display','none');
+    li.attr("expanded","false");
 }
