@@ -32,7 +32,10 @@ function loadRoots(){
             id:'fileTree',
             onClickText:onClickText,
             loadNode:loadNode,
-            data:roots
+            data:roots,
+            operations:{
+                refresh:true
+            }
         });
     })
 }
@@ -104,4 +107,36 @@ function handleErr(code){
     }
     data.push(err);
     return data;
+}
+
+function submitFile(id){
+    var input=$('#'+id);
+    var formData = new FormData($('form')[0]);
+    $.ajax({
+        url: '/file/upload',  //server script to process data
+        type: 'POST',
+        xhr: function() {  // custom xhr
+            myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
+            }
+            return myXhr;
+        },
+        //Ajax事件
+        beforeSend: beforeSendHandler,
+        success: completeHandler,
+        error: errorHandler,
+        // Form数据
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+}
+
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
 }

@@ -8,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.AccessDeniedException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileSystem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +50,27 @@ public class FileService {
     public InputStream getFileInputStream(String path) throws FileNotFoundException {
         path=transformPath(path);
         return new FileInputStream(new File(path));
+    }
+
+    public boolean saveFile(File file, String dir) throws FileNotFoundException, FileAlreadyExistsException {
+        String name=file.getName();
+        String fpath=dir+(dir.endsWith(File.separator)?"":File.separator)+name;
+        if(exists(fpath)){
+            throw new FileAlreadyExistsException(file.getAbsolutePath());
+        }
+        if(!exists(dir)){
+            File d=new File(dir);
+            d.mkdir();
+        }
+        fpath=transformPath(fpath);
+        FileSystemUtils.moveFile(file,fpath);
+        return true;
+    }
+
+    public boolean exists(String path){
+        path=transformPath(path);
+        File file=new File(path);
+        return file.exists();
     }
 
     private String transformPath(String path){

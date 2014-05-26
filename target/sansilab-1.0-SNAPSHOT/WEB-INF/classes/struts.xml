@@ -38,6 +38,25 @@
                 <param name="bufferSize">4096</param>
             </result>
         </action>
+
+        <action name="upload" class="com.dianping.sansi.sansilab.action.FileAction" method="upload">
+            <!-- 动态设置savePath的属性值
+            <param name="savePath">/images</param>
+            -->
+            <!--
+            <result name="success">/WEB-INF/page/message.jsp</result>
+            -->
+            <result type="json"></result>
+            <!--
+            <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">image/bmp,image/png,image/gif,image/jpeg</param>
+                <param name="maximumSize">1025956</param>
+            </interceptor-ref>
+            -->
+            <!-- 默认拦截器必须放在fileUpload之后，否则无效
+            <interceptor-ref name="defaultStack" />
+            -->
+        </action>
     </package>
 </struts>
  	

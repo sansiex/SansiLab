@@ -1,9 +1,8 @@
 package com.dianping.sansi.sansilab.component.file;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.nio.file.AccessDeniedException;
+import java.security.InvalidParameterException;
 import java.util.List;
 
 /**
@@ -34,5 +33,54 @@ public class FileSystemUtils {
     public static File[] listRoots(){
         File[] roots= File.listRoots();
         return roots;
+    }
+
+    public static boolean moveFile(File src, String dest) throws FileNotFoundException {
+        if(src==null || dest==null){
+            throw new InvalidParameterException();
+        }
+        if( !src.exists()){
+            throw new FileNotFoundException();
+        }
+        File d=new File(dest);
+        File p=d.getParentFile();
+        if(!p.exists()){
+            p.mkdir();
+        }
+        return src.renameTo(new File(dest));
+    }
+
+    public static void copyFile(File src, String dest) throws InvalidParameterException, IOException {
+        if(src==null || dest==null){
+            throw new InvalidParameterException();
+        }
+        if(!src.exists()){
+            throw new FileNotFoundException();
+        }
+        File d=new File(dest);
+        File p=d.getParentFile();
+        if(!p.exists()){
+            p.mkdir();
+        }
+
+        int bytesum = 0;
+        int byteread = 0;
+        InputStream inStream = new FileInputStream(src);
+        FileOutputStream fs = new FileOutputStream(d);
+        byte[] buffer = new byte[2048];
+        int length;
+        while ((byteread = inStream.read(buffer)) != -1) {
+            bytesum += byteread;
+            fs.write(buffer, 0, byteread);
+        }
+        inStream.close();
+    }
+
+    public static void main(String[] args) {
+        try {
+            copyFile(new File("E:\\def.txt"), "E:\\abc.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -37,7 +37,7 @@ public class DirectoryAction extends BaseAction {
             code=CODE_NOT_DIRECTORY;
             return SUCCESS;
         } catch (AccessDeniedException e) {
-            code=CODE_ACCESS_DENIED;
+            code=CODE_FILE_ACCESS_DENIED;
             return SUCCESS;
         }
         return SUCCESS;

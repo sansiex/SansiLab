@@ -4,6 +4,7 @@ import com.dianping.sansi.sansilab.service.FileService;
 
 import java.io.*;
 import java.net.URLDecoder;
+import java.nio.file.FileAlreadyExistsException;
 
 /**
  * Created by lenovo on 2014/5/20.
@@ -19,6 +20,8 @@ public class FileAction extends BaseAction {
 
     //input
     String path;
+    File file;
+    String contentType;
 
     public String download(){
         if(path==null){
@@ -32,17 +35,41 @@ public class FileAction extends BaseAction {
             inputStream=fileService.getFileInputStream(d);
         } catch (FileNotFoundException e) {
             code=CODE_FILE_NOT_FOUND;
+            return SUCCESS;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-//        catch (IllegalArgumentException e){
-//            code=CODE_INVALID_PARAMETER;
-//        }
+        return SUCCESS;
+    }
+
+    public String upload(){
+        try {
+            System.out.println("upload file "+fileName+" :"+file.getAbsolutePath()+" to "+path);
+            fileService.saveFile(file,path);
+        } catch (FileNotFoundException e) {
+            code=CODE_FILE_NOT_FOUND;
+            return SUCCESS;
+        } catch (FileAlreadyExistsException e) {
+            code=CODE_FILE_EXISTS;
+            return SUCCESS;
+        }
         return SUCCESS;
     }
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public InputStream getInputStream(){
