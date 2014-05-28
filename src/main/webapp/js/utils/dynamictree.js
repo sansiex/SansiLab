@@ -56,11 +56,15 @@ dtree.createChild=function(data, tree){
     li.append("&nbsp;&nbsp;&nbsp;");
     li.append(a);
 
-    if(data.isLeaf!=true && tree.operations!=null){
-        if(tree.operations.refresh){
-            var refresh=dtree.createRefreshButton(li,tree);
-            li.append("&nbsp;&nbsp;&nbsp;");
-            li.append(refresh);
+    //add operations to item
+    if(tree.operations!=null){
+        for(var i=0;i<tree.operations.length;i++){
+            var op=tree.operations[i];
+            if(op.filter(li,tree)){
+                var opBtn=op.createOperation(li,tree);
+                li.append("&nbsp;&nbsp;&nbsp;");
+                li.append(opBtn);
+            }
         }
     }
 
@@ -208,4 +212,24 @@ dtree.createRefreshButton=function(li,tree){
         dtree.loadAndExpand(lin,tree);
     });
     return refresh;
+}
+
+dtree.operation={
+    refresh:{
+        createOperation:function(li,tree){
+            var refresh=$("<span class='glyphicon glyphicon-refresh'></span>");
+            refresh.click(function(event){
+                var tgt=event.target;
+                var lin=$(tgt).closest("li");
+                dtree.loadAndExpand(lin,tree);
+            });
+            return refresh;
+        },
+        filter:function(li,tree){
+            if($(li).attr("isLeaf")=="false"){
+                return true;
+            }
+            return false;
+        }
+    }
 }

@@ -21,6 +21,7 @@
         </script>
     </head>
     <body>
+    <%@ include file="common/header.jsp" %>
 
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">

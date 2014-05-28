@@ -28,18 +28,31 @@
     </head>
     <body>
     <%@ include file="common/header.jsp" %>
+
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
                     <ul id="fileTree"></ul>
                 </div>
                 <div class="col-md-5">
-                    <form enctype="multipart/form-data">
-                        <input type="file" name="upload" id="upload" class="file-input" data-filename-placement="inside">
-                        <button type="button" class="btn btn-primary" onclick="submitFile(upload)">上传文件</button>
-                    </form>
-                    <progress></progress>
-
+                    <div id="uploadDlg" role="dialog" class="modal fade" aria-labelledby="uploadTitle" data-backdrop="static" data-keyboard="true" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3 class="modal-title" id="uploadTitle">Upload File</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="uploadForm" enctype="multipart/form-data">
+                                        <input type="file" name="upload" id="upload" class="file-input" data-filename-placement="inside">
+                                        <input type="hidden" name="path" id="path" >
+                                        <button type="button" class="btn btn-primary" onclick="submitFile('uploadForm')">Upload</button>
+                                    </form>
+                                    <progress></progress>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

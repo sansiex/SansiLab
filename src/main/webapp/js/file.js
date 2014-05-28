@@ -3,6 +3,8 @@ var CODE_NOT_DIRECTORY=1001;
 var CODE_FILE_NOT_FOUND=1002;
 var CODE_ACCESS_DENIED=1003;
 
+var selectedItem=null;
+
 function loadRoots(){
     http.post("/file/listRoots",null,function(data){
         var fileList=data.fileList;
@@ -33,9 +35,26 @@ function loadRoots(){
             onClickText:onClickText,
             loadNode:loadNode,
             data:roots,
-            operations:{
-                refresh:true
-            }
+            operations:[
+                dtree.operation.refresh,
+                {
+                    createOperation:function(li,tree){
+                        var btn=$("<span class='glyphicon glyphicon-upload' data-toggle='modal' data-target='#uploadDlg'></span>");
+                        btn.click(function(event){
+                            var tgt=event.target;
+                            var lin=$(tgt).closest("li");
+                            selectedItem=lin;
+                        });
+                        return btn;
+                    },
+                    filter:function(li,tree){
+                        if($(li).attr("isLeaf")=="false"){
+                            return true;
+                        }
+                        return false;
+                    }
+                }
+            ]
         });
     })
 }
@@ -103,35 +122,21 @@ function handleErr(code){
             err.text="Access to the directory is denied.";
             break;
         default:
-            err.text="Unknown error."
+            err.text="Unknown error:"+code;
     }
     data.push(err);
     return data;
 }
 
-function submitFile(id){
-    var input=$('#'+id);
-    var formData = new FormData($('form')[0]);
-    $.ajax({
-        url: '/file/upload',  //server script to process data
-        type: 'POST',
-        xhr: function() {  // custom xhr
-            myXhr = $.ajaxSettings.xhr();
-            if(myXhr.upload){ // check if upload property exists
-                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
-            }
-            return myXhr;
-        },
-        //Ajax事件
-        beforeSend: beforeSendHandler,
-        success: completeHandler,
-        error: errorHandler,
-        // Form数据
-        data: formData,
-        //Options to tell JQuery not to process data or worry about content-type
-        cache: false,
-        contentType: false,
-        processData: false
+function submitFile(formId){
+    var attr=fromJson($(selectedItem).attr("data-attr"));
+    $('#path')[0].value=attr.path;
+    var data=formToMap(formId);
+    http.post('/file/upload',data,function(data){
+        $('#uploadForm').modal('hide');
+        var index=parseInt($(selectedItem).attr("treeId"));
+        var tree=dtree.trees[index];
+        dtree.loadAndExpand(selectedItem,tree);
     });
 }
 
