@@ -38,3 +38,8 @@ function formToString(formId) {
     var str=data.join('&');
     return str;
 }
+
+var dialog={};
+dialog.alert=function(content){
+    alert(content);
+}

@@ -15,13 +15,14 @@ public class FileAction extends BaseAction {
 
     //output
     InputStream inputStream;
-    String fileName;
+    String filename;
     int code=DirectoryAction.CODE_SUCCESS;
 
     //input
     String path;
-    File file;
-    String contentType;
+    File upload;
+    String uploadContentType;
+    String uploadFileName;
 
     public String download(){
         if(path==null){
@@ -30,8 +31,8 @@ public class FileAction extends BaseAction {
         }
         try {
             String d= URLDecoder.decode(path,"utf-8");
-            fileName=d.substring(d.lastIndexOf(File.separator)+1);
-            fileName=new String(fileName.getBytes("gbk"),"ISO-8859-1");
+            filename=d.substring(d.lastIndexOf(File.separator)+1);
+            filename=new String(filename.getBytes("gbk"),"ISO-8859-1");
             inputStream=fileService.getFileInputStream(d);
         } catch (FileNotFoundException e) {
             code=CODE_FILE_NOT_FOUND;
@@ -44,8 +45,8 @@ public class FileAction extends BaseAction {
 
     public String upload(){
         try {
-            System.out.println("upload file "+fileName+" :"+file.getAbsolutePath()+" to "+path);
-            fileService.saveFile(file,path);
+            System.out.println("upload "+uploadContentType+" file "+uploadFileName+" :"+upload.getAbsolutePath()+" to "+path);
+            fileService.saveFile(upload,path,uploadFileName);
         } catch (FileNotFoundException e) {
             code=CODE_FILE_NOT_FOUND;
             return SUCCESS;
@@ -60,24 +61,28 @@ public class FileAction extends BaseAction {
         this.path = path;
     }
 
-    public void setFile(File file) {
-        this.file = file;
+    public void setUpload(File upload) {
+        this.upload = upload;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setUploadContentType(String uploadContentType) {
+        this.uploadContentType = uploadContentType;
+    }
+
+    public void setUploadFileName(String uploadFileName) {
+        this.uploadFileName = uploadFileName;
     }
 
     public InputStream getInputStream(){
         return inputStream;
     }
 
-    public String getFileName() {
-        return fileName;
+    public int getCode(){
+        return code;
     }
 
     public void setFileService(FileService fileService) {

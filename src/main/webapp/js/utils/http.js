@@ -60,3 +60,34 @@ http.download = function(url, data, method){
             .appendTo('body').submit().remove();
     };
 };
+
+http.upload=function(data,url,callback) {
+    function createXHttpRequest() {
+        if (window.ActiveXObject) {
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        else if (window.XMLHttpRequest) {
+            xmlhttp = new XMLHttpRequest();
+        }
+        else {
+            return;
+        }
+    }
+
+    function starRequest(data) {
+        createXHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
+                    var response=eval("("+xmlhttp.responseText+")");
+                    callback(response);
+
+                }
+            }
+        };
+        xmlhttp.open("POST", url, true);
+        xmlhttp.send(data);
+    }
+
+    starRequest(data);
+}

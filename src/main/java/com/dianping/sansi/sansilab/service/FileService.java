@@ -52,9 +52,8 @@ public class FileService {
         return new FileInputStream(new File(path));
     }
 
-    public boolean saveFile(File file, String dir) throws FileNotFoundException, FileAlreadyExistsException {
-        String name=file.getName();
-        String fpath=dir+(dir.endsWith(File.separator)?"":File.separator)+name;
+    public boolean saveFile(File file, String dir, String filename) throws FileNotFoundException, FileAlreadyExistsException {
+        String fpath=dir+(dir.endsWith(File.separator)?"":File.separator)+filename;
         if(exists(fpath)){
             throw new FileAlreadyExistsException(file.getAbsolutePath());
         }

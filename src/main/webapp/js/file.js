@@ -2,6 +2,7 @@ var fileTree;
 var CODE_NOT_DIRECTORY=1001;
 var CODE_FILE_NOT_FOUND=1002;
 var CODE_ACCESS_DENIED=1003;
+var CODE_FILE_EXISTS=1004;
 
 var selectedItem=null;
 
@@ -129,15 +130,25 @@ function handleErr(code){
 }
 
 function submitFile(formId){
+    var upload=$("#upload")[0];
+    if(upload.value==null || upload.value==""){
+        dialog.alert("Please specify the file to upload.");
+        return;
+    }
+
     var attr=fromJson($(selectedItem).attr("data-attr"));
     $('#path')[0].value=attr.path;
-    var data=formToMap(formId);
-    http.post('/file/upload',data,function(data){
-        $('#uploadForm').modal('hide');
-        var index=parseInt($(selectedItem).attr("treeId"));
-        var tree=dtree.trees[index];
-        dtree.loadAndExpand(selectedItem,tree);
-    });
+    var form=$("#"+formId)[0];
+    var formData=new FormData(form);
+
+    http.upload(formData,"/file/upload",function(data){
+        var code=data.code;
+        switch (code){
+            case CODE_FILE_EXISTS:
+                dialog.alert("The file with the same name exists")
+        }
+        console.log(data);
+    })
 }
 
 function progressHandlingFunction(e){
