@@ -14,6 +14,13 @@ function fromJson(json){
     return eval("("+json+")");
 }
 
+function foreach(obj, func){
+    for(var k in obj){
+        var v=obj[k];
+        func(v,k);
+    }
+}
+
 //获取指定form中的所有的数据
 function formToMap(formId) {
     var form = document.getElementById(formId);
@@ -39,7 +46,3 @@ function formToString(formId) {
     return str;
 }
 
-var dialog={};
-dialog.alert=function(content){
-    alert(content);
-}

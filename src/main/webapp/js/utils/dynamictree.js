@@ -9,6 +9,8 @@ var dtree={
 dtree.createTree=function(params){
     var root=$('#'+params.id)[0];
 
+    $(root).attr("tree_root","true");
+
     var tree={
         id:dtree.treeId++,
         onClickText:params.onClickText,
@@ -83,21 +85,15 @@ dtree.createChild=function(data, tree){
 }
 
 dtree.loadAndExpand=function(pli,tree){
-    var attrstr=pli.attr("data-attr");
+    var li=$(pli);
+    var attrstr=li.attr("data-attr");
     var attr=eval('('+attrstr+')');
     var params={
         attributes:attr,
-        text:pli.children('a').html(),
+        text:li.children('a').html(),
         node:pli,
-        id:pli.attr('id')
+        id:li.attr('id')
     };
-
-//    if(pli.attr('ready')!='true'){
-//        var refresh=dtree.createRefreshButton(pli,tree);
-//        var text=pli.children('.tree-item-text');
-//        text.after("&nbsp;&nbsp;&nbsp;");
-//        text.after(refresh);
-//    }
 
     tree.loadNode(params,function(lid,data){
         var li=$('#'+lid);
@@ -179,7 +175,6 @@ dtree.createItemIcon=function(li,tree,data){
             onclick=function(event){
                 //阻止事件冒泡
                 event.stopPropagation();
-                console.log(event);
                 var target=event.target;
                 var pli=$(target).closest('li');
                 if(li.attr('ready')!='true'){
@@ -212,6 +207,20 @@ dtree.createRefreshButton=function(li,tree){
         dtree.loadAndExpand(lin,tree);
     });
     return refresh;
+}
+
+dtree.getParent=function(li){
+    if(li==null || li.id.indexOf('tree_node')!=0){
+        console.log(li+" is not a tree node.");
+        return null;
+    }
+    var p=$(li).parent();
+    if(p.attr('tree_root')=="true"){
+        console.log(li+" is a root node.");
+        return null;
+    }
+
+    return p.closest('li')[0];
 }
 
 dtree.operation={

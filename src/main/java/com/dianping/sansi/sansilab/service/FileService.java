@@ -52,7 +52,7 @@ public class FileService {
         return new FileInputStream(new File(path));
     }
 
-    public boolean saveFile(File file, String dir, String filename) throws FileNotFoundException, FileAlreadyExistsException {
+    public boolean saveFile(File file, String dir, String filename) throws FileNotFoundException, FileAlreadyExistsException, AccessDeniedException {
         String fpath=dir+(dir.endsWith(File.separator)?"":File.separator)+filename;
         if(exists(fpath)){
             throw new FileAlreadyExistsException(file.getAbsolutePath());
@@ -62,8 +62,28 @@ public class FileService {
             d.mkdir();
         }
         fpath=transformPath(fpath);
-        FileSystemUtils.moveFile(file,fpath);
+        if(!FileSystemUtils.moveFile(file,fpath)){
+            throw new AccessDeniedException(fpath);
+        }
         return true;
+    }
+
+    public void rename(String src, String dest) throws FileNotFoundException, FileAlreadyExistsException, AccessDeniedException {
+        String sp=transformPath(src);
+        File f=new File(sp);
+        if(!f.exists()){
+            throw new FileNotFoundException();
+        }
+
+        String dp=transformPath(dest);
+        File d=new File(dp);
+        if(d.exists()){
+            throw new FileAlreadyExistsException(dp);
+        }
+        boolean suc=f.renameTo(d);
+        if(!suc){
+            throw new AccessDeniedException(dp);
+        }
     }
 
     public boolean exists(String path){

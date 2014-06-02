@@ -14,4 +14,5 @@
 <script src="/js/lib/ajax-pushlet-client.js"></script>
 <script src="/js/lib/bootstrap.min.js"></script>
 <script src="/js/utils/http.js"></script>
+<script src="/js/utils/dialog.js"></script>
 <script src="/js/main.js"></script>

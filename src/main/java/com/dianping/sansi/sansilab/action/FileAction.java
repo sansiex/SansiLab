@@ -4,6 +4,7 @@ import com.dianping.sansi.sansilab.service.FileService;
 
 import java.io.*;
 import java.net.URLDecoder;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.FileAlreadyExistsException;
 
 /**
@@ -52,6 +53,27 @@ public class FileAction extends BaseAction {
             return SUCCESS;
         } catch (FileAlreadyExistsException e) {
             code=CODE_FILE_EXISTS;
+            return SUCCESS;
+        } catch (AccessDeniedException e) {
+            code=CODE_FILE_ACCESS_DENIED;
+            return SUCCESS;
+        }
+        return SUCCESS;
+    }
+
+    public String rename(){
+        String dir=path.substring(0,path.lastIndexOf(File.separator)+1);
+        String dest=dir+filename;
+        try {
+            fileService.rename(path,dest);
+        } catch (FileNotFoundException e) {
+            code=CODE_FILE_NOT_FOUND;
+            return SUCCESS;
+        } catch (FileAlreadyExistsException e) {
+            code=CODE_FILE_EXISTS;
+            return SUCCESS;
+        } catch (AccessDeniedException e) {
+            code=CODE_FILE_ACCESS_DENIED;
             return SUCCESS;
         }
         return SUCCESS;

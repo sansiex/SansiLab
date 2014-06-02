@@ -4,6 +4,9 @@
 	<constant name="struts.action.excludePattern" value="" />
 	<constant name="struts.action.extension" value="," />
 	<constant name="struts.custom.i18n.resources" value="messages" />
+    <!-- the actual maximum size of uploaded file -->
+    <constant name="struts.multipart.maxSize" value="500000000"/>
+    <constant name="struts.multipart.saveDir" value="tmpFile"/>
     <!-- 开发模式下使用,这样可以打印出更详细的错误信息
     <constant name="struts.devMode" value="true" />
     -->
@@ -28,6 +31,10 @@
             <result type="json"/>
         </action>
 
+        <action name="rename" class="com.dianping.sansi.sansilab.action.FileAction" method="rename">
+            <result type="json"/>
+        </action>
+
         <action name="download" class="com.dianping.sansi.sansilab.action.FileAction" method="download">
             <result name="success" type="stream">
                 <param name="contentType">application/octet-stream</param>
@@ -46,9 +53,10 @@
             <!--
             <result name="success">/WEB-INF/page/message.jsp</result>
             -->
-            <result type="json"></result>
+            <result name="success" type="json"></result>
 
             <interceptor-ref name="fileUpload">
+                <param name="maximumSize">500000000</param>
             </interceptor-ref>
             <interceptor-ref name="defaultStack" />
         </action>
