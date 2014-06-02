@@ -11,6 +11,10 @@ dialog.show=function(dlg){
     dlg.modal('show');
 }
 
+dialog.close=function(dlg){
+    dlg.modal('hide');
+}
+
 dialog.alert=function(content){
     var dlg=dialog.createDialog(null,content,[dialog.button.ok]);
     dialog.show(dlg);

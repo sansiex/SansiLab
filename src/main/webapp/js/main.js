@@ -46,3 +46,18 @@ function formToString(formId) {
     return str;
 }
 
+//Dynamically add js ref
+function includeJS(src){
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = false;
+    ga.src = src;
+    var s = document.getElementsByTagName('head')[0];
+    s.appendChild(ga);
+}
+
+//Dynamically add js ref
+function removeJS(src){
+    $('script[src="'+src+'"]').remove();
+}
+

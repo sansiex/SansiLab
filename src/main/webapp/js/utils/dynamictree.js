@@ -70,6 +70,17 @@ dtree.createChild=function(data, tree){
         }
     }
 
+    if(data.operations!=null){
+        for(var i=0;i<data.operations.length;i++){
+            var op=data.operations[i];
+            if(op.filter(li,tree)){
+                var opBtn=op.createOperation(li,tree);
+                li.append("&nbsp;&nbsp;&nbsp;");
+                li.append(opBtn);
+            }
+        }
+    }
+
     //create child nodes for static tree
     if(data.children!=null){
         var children=$("<ul></ul>");
@@ -82,6 +93,20 @@ dtree.createChild=function(data, tree){
     }
 
     return li;
+}
+
+dtree.appendChild=function(li,data){
+    if(!dtree.isTreeNode(li)){
+        return;
+    }
+    $(li).attr('isLeaf','false');
+    if($(li).children('ul').length==0){
+        var ul="<ul></ul>";
+        $(li).append(ul);
+    }
+    var ul=$(li).children('ul')[0];
+    var c=dtree.createChild(data,dtree.getTree(li));
+    $(ul).append(c);
 }
 
 dtree.loadAndExpand=function(pli,tree){
@@ -209,18 +234,43 @@ dtree.createRefreshButton=function(li,tree){
     return refresh;
 }
 
-dtree.getParent=function(li){
-    if(li==null || li.id.indexOf('tree_node')!=0){
+dtree.getTree=function(li){
+    if(!dtree.isTreeNode(li)){
         console.log(li+" is not a tree node.");
         return null;
     }
-    var p=$(li).parent();
-    if(p.attr('tree_root')=="true"){
+    var tid=parseInt($(li).attr("treeId"));
+    return dtree.trees[tid];
+}
+
+dtree.getParent=function(li){
+    if(!dtree.isTreeNode(li)){
+        console.log(li+" is not a tree node.");
+        return null;
+    }
+    if(dtree.isRoot(li)){
         console.log(li+" is a root node.");
         return null;
     }
 
+    var p=$(li).parent();
     return p.closest('li')[0];
+}
+
+dtree.isTreeNode=function(li){
+    if(li==null || $(li).attr('id').indexOf('tree_node')!=0){
+        return false;
+    }
+    return true;
+}
+
+dtree.isRoot=function(li){
+    var p=$(li).parent();
+    if(p.attr('tree_root')=="true"){
+        console.log(li+" is a root node.");
+        return true;
+    }
+    return false;
 }
 
 dtree.operation={

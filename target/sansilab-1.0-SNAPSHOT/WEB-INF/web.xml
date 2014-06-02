@@ -6,7 +6,7 @@
 
     <display-name>Sansi Lab</display-name>
     <welcome-file-list>
-        <welcome-file>page/page?page=index</welcome-file>
+        <welcome-file>page/index.jsp</welcome-file>
     </welcome-file-list>
 
     <context-param>

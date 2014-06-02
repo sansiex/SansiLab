@@ -33,7 +33,7 @@ function loadRoots(){
         }
 
         dtree.createTree({
-            id:'fileTree',
+            id:'include',
             onClickText:onClickText,
             loadNode:loadNode,
             data:roots,
@@ -63,7 +63,7 @@ function loadRoots(){
                                 http.post('/file/rename',{filename:filename,path:path},function(data){
                                     var code=data.code;
                                     if(code==CODE_SUCCESS){
-                                        $(dlg).modal('hide');
+                                        dialog.close(dlg);
                                         dialog.alert('The file has been successfully renamed to:'+filename+'!');
                                         dtree.loadAndExpand(dtree.getParent(selectedItem),tree);
                                     }else{
