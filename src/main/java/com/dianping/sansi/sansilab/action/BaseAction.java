@@ -19,4 +19,5 @@ public class BaseAction extends ActionSupport {
     public void setLogService(LogService logService) {
         this.logService = logService;
     }
+
 }

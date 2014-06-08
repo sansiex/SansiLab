@@ -30,6 +30,9 @@
     <%@ include file="common/header.jsp" %>
 
         <div class="container">
+            <div class="jumbotron">
+                <h2>File Manager</h2>
+            </div>
             <ul id="fileTree"></ul>
             <div id="uploadDlg" role="dialog" class="modal fade" aria-labelledby="uploadTitle" data-backdrop="static" data-keyboard="true" tabindex="-1">
                 <div class="modal-dialog">

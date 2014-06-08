@@ -33,7 +33,7 @@ function loadRoots(){
         }
 
         dtree.createTree({
-            id:'include',
+            id:'fileTree',
             onClickText:onClickText,
             loadNode:loadNode,
             data:roots,

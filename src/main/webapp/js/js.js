@@ -2,10 +2,20 @@
  * Created by lenovo on 2014/6/2.
  */
 
+var edit;
+
 function runCode(){
-    var ta=$("#editor")[0];
-    var code=ta.value;
+    var code=edit.getValue();
     eval(code);
+}
+
+function createEditor(){
+    edit=CodeMirror(document.getElementById('editor'),{
+        mode:'javascript',
+        theme:'eclipse',
+        value:'function my(){return 100;}\n',
+        lineNumbers: true
+    });
 }
 
 function createIncludeTree(){
@@ -16,11 +26,12 @@ function createIncludeTree(){
         attributes: {
             name:'default'
         },
-        text: "Default"
+        text: "Default",
+        children:extractDefaultScript()
     },{
         isLeaf:false,
         loadNode:null,
-        onClickText:function(event){},
+        onClickText:function(event){window.open(src);},
         attributes: {
             name:'user'
         },
@@ -85,4 +96,29 @@ function createIncludeTree(){
             }
         }]
     });
+}
+
+function extractDefaultScript(){
+    var sarr=[];
+    $('head script').each(function(index,item){
+        var src=$(item).attr('src');
+        if(src==null){
+            return;
+        }
+        var node={
+            isLeaf:true,
+            loadNode:null,
+            onClickText:function(event){
+                window.open(src);
+            },
+            attributes: {
+                name:src
+            },
+            text:src
+
+        };
+        sarr.push(node);
+    });
+
+    return sarr;
 }

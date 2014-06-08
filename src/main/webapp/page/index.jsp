@@ -46,9 +46,9 @@
                     <p><a class="btn btn-default" href="/page/page?page=js" role="button">Go &raquo;</a></p>
                 </div>
                 <div class="col-md-4">
-                    <h2>Heading</h2>
-                    <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+                    <h2>Console</h2>
+                    <p>Provide a console to interact with server. </p>
+                    <p><a class="btn btn-default" href="/page/page?page=console" role="button">go &raquo;</a></p>
                 </div>
             </div>
 

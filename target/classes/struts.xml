@@ -22,6 +22,12 @@
         </action>
     </package>
 
+    <package name="console" extends="json-default" namespace="/console">
+        <action name="exec" class="com.dianping.sansi.sansilab.action.ConsoleAction" method="exec">
+            <result type="json"/>
+        </action>
+    </package>
+
     <package name="file" extends="json-default,struts-default" namespace="/file">
         <action name="listDir" class="com.dianping.sansi.sansilab.action.DirectoryAction" method="listDir">
             <result type="json"/>

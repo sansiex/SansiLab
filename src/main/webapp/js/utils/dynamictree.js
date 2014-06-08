@@ -44,6 +44,11 @@ dtree.createChildren=function(ul, data, tree){
 }
 
 dtree.createChild=function(data, tree){
+    var expanded=false;
+    if(data.expanded==true || (data.expanded!=false && tree.expanded==true)){
+        expanded=true;
+    }
+
     var nid="tree_node_"+dtree.nodeId++;
     var li=$("<li id='"+nid+"' treeId='"+tree.id+"'></li>");
 
@@ -83,7 +88,7 @@ dtree.createChild=function(data, tree){
 
     //create child nodes for static tree
     if(data.children!=null){
-        var children=$("<ul></ul>");
+        var children=$("<ul style='display: none'></ul>");
         for(var k in data.children){
             var child=data.children[k];
             var cli=dtree.createChild(child, tree);
@@ -101,7 +106,7 @@ dtree.appendChild=function(li,data){
     }
     $(li).attr('isLeaf','false');
     if($(li).children('ul').length==0){
-        var ul="<ul></ul>";
+        var ul="<ul style='display: none'></ul>";
         $(li).append(ul);
     }
     var ul=$(li).children('ul')[0];
@@ -218,7 +223,9 @@ dtree.createItemIcon=function(li,tree,data){
 
 dtree.createItemText=function(li,tree,data){
     var a=$("<a class='tree-item-text'>"+data.text+"</a>");
-    if(tree.onClickText!=null){
+    if(data.onClickText!=null){
+        a.click(data.onClickText);
+    }else if(tree.onClickText!=null){
         a.click(tree.onClickText);
     }
     return a;

@@ -12,26 +12,41 @@
     <base href="<%=request.getContextPath()%>">
     <title>Sansi Laboratory</title>
 
+    <link rel="stylesheet" href="/css/codemirror.css">
+    <link rel="stylesheet" href="/css/codemirror-theme/eclipse.css">
+
     <%@ include file="common/ref.jsp" %>
+    <script src="/js/lib/codemirror.js"></script>
+    <script src="/js/lib/mode/javascript.js"></script>
+
     <script src="/js/console.js"></script>
     <script type="text/javascript">
-        //PL._init();
-        //PL.joinListen('/myevent/msg');
+        PL._init();
+        PL.joinListen('/console/response');
         $(document).ready(function(){
+            editor = CodeMirror(document.getElementById('console'),{
+                mode:'javascript'
+                ,theme:'eclipse'
+                ,value:'function my(){return 100;}\n12345678\n12345'
+                //,lineNumbers: true
+            });
+            registerEvent();
         });
-    </script>
-
-    <script type="text/css">
-
     </script>
 </head>
 <body>
 <%@ include file="common/header.jsp" %>
 <div class="container">
+    <div class="jumbotron">
+        <h2>Console</h2>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <hr>
-            <textarea id="console" style="width:100%;height:500px"></textarea>
+            <fieldset >
+                <div id="console" style="border:solid grey 3px"></div>
+            </fieldset>
+
         </div>
     </div>
 </div>

@@ -13,12 +13,18 @@
     <title>Sansi Laboratory</title>
 
     <%@ include file="common/ref.jsp" %>
+    <link rel="stylesheet" href="/css/codemirror.css">
+    <link rel="stylesheet" href="/css/codemirror-theme/eclipse.css">
+
+    <script src="/js/lib/codemirror.js"></script>
+    <script src="/js/lib/mode/javascript.js"></script>
     <script src="/js/utils/dynamictree.js"></script>
     <script src="/js/js.js"></script>
     <script type="text/javascript">
         //PL._init();
         //PL.joinListen('/myevent/msg');
         $(document).ready(function(){
+            createEditor();
             createIncludeTree();
         });
     </script>
@@ -31,11 +37,15 @@
 <%@ include file="common/header.jsp" %>
 
     <div class="container">
+        <div class="jumbotron">
+            <h2>Javascript Editor</h2>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <button class="btn btn-primary" onclick="runCode();">Run</button>
                 <hr>
-                <textarea id="editor" style="width:100%;height:500px"></textarea>
+                <div id="editor"></div>
+                <!--<textarea id="editor" style="width:100%;height:500px"></textarea>-->
             </div>
             <div class="col-md-4">
                 <ul id="include" />
