@@ -35,7 +35,7 @@ public class FileSystemUtils {
         return roots;
     }
 
-    public static boolean moveFile(File src, String dest) throws FileNotFoundException {
+    public static void moveFile(File src, String dest) throws FileNotFoundException, AccessDeniedException {
         if(src==null || dest==null){
             throw new InvalidParameterException();
         }
@@ -47,7 +47,10 @@ public class FileSystemUtils {
         if(!p.exists()){
             p.mkdir();
         }
-        return src.renameTo(new File(dest));
+        boolean res = src.renameTo(new File(dest));
+        if(!res){
+            throw new AccessDeniedException(dest);
+        }
     }
 
     public static void copyFile(File src, String dest) throws InvalidParameterException, IOException {

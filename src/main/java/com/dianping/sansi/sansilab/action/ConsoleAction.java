@@ -32,9 +32,14 @@ public class ConsoleAction extends BaseAction {
             int num=1;
             @Override
             public void run() {
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Event event = Event.createDataEvent("/console/response");
                 event.setField("msg", "Unicast message "+num++);
-                Dispatcher.getInstance().unicast(event, "1"); // 向ID为piero的用户推送
+                Dispatcher.getInstance().unicast(event,"145"); // 向ID为piero的用户推送
             }
         }).start();
 

@@ -1,9 +1,4 @@
 var fileTree;
-var CODE_SUCCESS=0;
-var CODE_NOT_DIRECTORY=1001;
-var CODE_FILE_NOT_FOUND=1002;
-var CODE_ACCESS_DENIED=1003;
-var CODE_FILE_EXISTS=1004;
 
 var selectedItem=null;
 
@@ -67,7 +62,7 @@ function loadRoots(){
                                         dialog.alert('The file has been successfully renamed to:'+filename+'!');
                                         dtree.loadAndExpand(dtree.getParent(selectedItem),tree);
                                     }else{
-                                        dialog.alert(handleFileError(code));
+                                        dialog.alert(getErrorMessage(code));
                                     }
                                 });
                             });
@@ -155,7 +150,7 @@ function handleErr(code){
         }
     }
 
-    err.text=handleFileError(code);
+    err.text=getErrorMessage(code);
     data.push(err);
     return data;
 }
@@ -177,24 +172,9 @@ function submitFile(formId){
         if(code==CODE_SUCCESS){
             $('#uploadDlg').modal('hide');
         }else{
-            dialog.alert(handleFileError(code));
+            dialog.alert(getErrorMessage(code));
         }
     })
-}
-
-function handleFileError(code){
-    switch (code){
-        case CODE_NOT_DIRECTORY:
-            return "The clicked item isn't a directory.";
-        case CODE_FILE_NOT_FOUND:
-            return "Can't find the directory or file.";
-        case CODE_ACCESS_DENIED:
-            return "Access to the directory is denied.";
-        case CODE_FILE_EXISTS:
-            return "The file with the same name already exists.";
-        default:
-            return "Unknown error:"+code;
-    }
 }
 
 function progressHandlingFunction(e){

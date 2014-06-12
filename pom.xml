@@ -200,15 +200,18 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>pushlet</groupId>
             <artifactId>pushlet</artifactId>
             <version>${pushlet.version}</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>pushlet</groupId>
             <artifactId>pushletclient</artifactId>
             <version>${pushlet.version}</version>
         </dependency>
+        -->
     </dependencies>
 </project>

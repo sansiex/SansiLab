@@ -2,6 +2,16 @@
  * Created by sansi on 2014/5/28.
  */
 
+var CODE_SUCCESS=0;
+var CODE_NOT_DIRECTORY=1001;
+var CODE_FILE_NOT_FOUND=1002;
+var CODE_FILE_ACCESS_DENIED=1003;
+var CODE_FILE_EXISTS=1004;
+
+function getUserId(){
+    return 145;
+}
+
 function log(content){
     console.log(content);
 }
@@ -61,3 +71,16 @@ function removeJS(src){
     $('script[src="'+src+'"]').remove();
 }
 
+var errorMessage={};
+errorMessage[CODE_NOT_DIRECTORY]="The clicked item isn't a directory.";
+errorMessage[CODE_FILE_NOT_FOUND]="Can't find the directory or file.";
+errorMessage[CODE_FILE_ACCESS_DENIED]="Access to the directory or file is denied.";
+errorMessage[CODE_FILE_EXISTS]="The file with the same name already exists.";
+
+function getErrorMessage(code){
+    var msg=errorMessage[code];
+    if(msg!=null) {
+        return msg;
+    }
+    return "Unknown error:"+code;
+}
