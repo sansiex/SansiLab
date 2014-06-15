@@ -79,6 +79,15 @@ public class FileSystemUtils {
         inStream.close();
     }
 
+    public InputStream getFileInputStream(String path) throws FileNotFoundException {
+        return new FileInputStream(new File(path));
+    }
+
+    public boolean exists(String path){
+        File file=new File(path);
+        return file.exists();
+    }
+
     public static void main(String[] args) {
         try {
             copyFile(new File("E:\\def.txt"), "E:\\abc.txt");

@@ -6,29 +6,43 @@ var pwd="d:\\";
 var editor;
 var curCursor;
 
+var OPT_END_OUTPUT="end_output";
 
 function execStatement(script, pwd){
     console.log(pwd+" > "+script);
-    http.post("/console/exec",{script:script,pwd:pwd},function(data){
+    http.post("/console/exec",{script:script,pwd:pwd,userId:getUserId()},function(data){
         var code=data.code;
         if(code!=CODE_SUCCESS){
             dialog.alert(getErrorMessage(code));
         }
     });
+    editor.setOption("readOnly",true);
 }
 
-function onData(event) {
-    console.log(event);
+function handleConsoleOutput(event) {
+    var msg=event.get('msg');
+    if(msg!=null){
+        appendLine(msg);
+    }
+
+    var opt=event.get("opt");
+    if(opt==OPT_END_OUTPUT){
+        editor.setOption("readOnly",false);
+        setCursorToEnd();
+    }
+
     // 离开
     // PL.leave();
 }
 
 function getTypedStatement(){
-    return editor.getLine(editor.lastLine()-1);
+    return editor.getLine(editor.lastLine());
 }
 
 function keyDownReturn(event){
+    event.preventDefault();
     var stm=getTypedStatement();
+    append("\n");
     execStatement(stm,pwd);
 }
 
@@ -38,14 +52,24 @@ function keyDownBackspace(event){
     }
 }
 
+function append(content){
+    editor.setValue(editor.getValue()+content);
+}
+
+function appendLine(content){
+    if(content.substring(content.length-1,content.length)!="\n"){
+        content+="\n";
+    }
+    append(content);
+}
+
 function setCursorToEnd(){
     var line=editor.lastLine();
-    var ch=editor.getLine(editor.lastLine()).length;
+    var ch=editor.getLine(editor.lastLine()).length-1;
     editor.setCursor({
         line:line,
-        ch:ch
+        ch:Math.max(ch,0)
     });
-    console.log(line+","+ch);
 }
 
 function registerEvent(){
@@ -64,7 +88,6 @@ function registerEvent(){
                 break;
             default:
                 console.log("keydown:"+keyCode+(event.ctrlKey?"+ctrl":""));
-                console.log(event);
                 break;
         }
     });

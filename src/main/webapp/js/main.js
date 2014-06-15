@@ -84,3 +84,23 @@ function getErrorMessage(code){
     }
     return "Unknown error:"+code;
 }
+
+function onData(event){
+    var sub=event.getSubject();
+    var handler=push.eventMap[sub];
+    if(handler!=null){
+        handler(event);
+    }
+}
+
+PL._init();
+var push={
+    eventMap:{}
+};
+push.joinListen=function(sub,handler){
+    PL.joinListen(sub);
+    push.eventMap[sub]=handler;
+}
+push.removeListen=function(sub){
+    delete push.eventMap[sub];
+}

@@ -21,8 +21,8 @@
 
     <script src="/js/console.js"></script>
     <script type="text/javascript">
-        PL._init();
-        PL.joinListen('/console/response');
+        push.joinListen('/console/output',handleConsoleOutput);
+
         $(document).ready(function(){
             editor = CodeMirror(document.getElementById('console'),{
                 mode:'javascript'
