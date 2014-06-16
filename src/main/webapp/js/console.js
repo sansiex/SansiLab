@@ -6,12 +6,15 @@ var pwd="d:\\";
 var editor;
 var curCursor;
 
-function getUserId(){
-    return 1;
-}
-
 function execStatement(script, pwd){
-    console.log(pwd+" > "+script);
+    console.log("exec: "+pwd+" > "+script);
+    http.post("/console/exec",{script:script,pwd:pwd},function(data){
+        var code=data.code;
+        if(code!=CODE_SUCCESS){
+            dialog.alert(getErrorMessage(code));
+        }
+        //console.log("response"+data.msg);
+    });
 }
 
 function getTypedStatement(){

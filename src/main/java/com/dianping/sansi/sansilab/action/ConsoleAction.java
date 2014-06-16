@@ -11,6 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.FileAlreadyExistsException;
+import java.util.Timer;
 
 /**
  * Created by lenovo on 2014/5/20.
@@ -32,9 +33,16 @@ public class ConsoleAction extends BaseAction {
             int num=1;
             @Override
             public void run() {
-                Event event = Event.createDataEvent("/console/response");
-                event.setField("msg", "Unicast message "+num++);
-                Dispatcher.getInstance().unicast(event, "1"); // 向ID为piero的用户推送
+                for(int i=0;i<3;i++){
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Event event = Event.createDataEvent("/console/response");
+                    event.setField("msg", "Unicast message "+num++);
+                    Dispatcher.getInstance().unicast(event, "1"); // 向ID为piero的用户推送
+                }
             }
         }).start();
 
