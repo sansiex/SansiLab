@@ -1,6 +1,5 @@
 var fileTree;
 
-
 var selectedItem=null;
 
 function loadRoots(){

@@ -8,9 +8,8 @@ var CODE_FILE_NOT_FOUND=1002;
 var CODE_FILE_ACCESS_DENIED=1003;
 var CODE_FILE_EXISTS=1004;
 
-//Test for pushlet: To be replaced
 function getUserId(){
-    return 1;
+    return 145;
 }
 
 function log(content){
@@ -72,18 +71,36 @@ function removeJS(src){
     $('script[src="'+src+'"]').remove();
 }
 
-function getErrorMessage(code){
-    var msg=errorMessage[code];
-    if(msg!=null){
-        return msg;
-    }
-    return "Unknown error:"+code;
-}
-
 var errorMessage={};
 errorMessage[CODE_NOT_DIRECTORY]="The clicked item isn't a directory.";
 errorMessage[CODE_FILE_NOT_FOUND]="Can't find the directory or file.";
 errorMessage[CODE_FILE_ACCESS_DENIED]="Access to the directory or file is denied.";
 errorMessage[CODE_FILE_EXISTS]="The file with the same name already exists.";
 
+function getErrorMessage(code){
+    var msg=errorMessage[code];
+    if(msg!=null) {
+        return msg;
+    }
+    return "Unknown error:"+code;
+}
 
+function onData(event){
+    var sub=event.getSubject();
+    var handler=push.eventMap[sub];
+    if(handler!=null){
+        handler(event);
+    }
+}
+
+PL._init();
+var push={
+    eventMap:{}
+};
+push.joinListen=function(sub,handler){
+    PL.joinListen(sub);
+    push.eventMap[sub]=handler;
+}
+push.removeListen=function(sub){
+    delete push.eventMap[sub];
+}

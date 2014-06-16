@@ -141,9 +141,13 @@ maxStatementsPerConnection均为0，则缓存被关闭。默认为0； -->
     </bean>
 
     <bean id="consoleAction" class="com.dianping.sansi.sansilab.action.ConsoleAction">
-        <property name="fileService">
-            <ref bean="fileService" />
+        <property name="consoleService">
+            <ref bean="consoleService" />
         </property>
+    </bean>
+
+    <bean id="consoleService"
+          class="com.dianping.sansi.sansilab.service.ConsoleService">
     </bean>
 
     <bean id="directoryAction" class="com.dianping.sansi.sansilab.action.DirectoryAction">
