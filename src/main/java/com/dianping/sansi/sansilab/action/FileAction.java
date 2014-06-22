@@ -10,14 +10,13 @@ import java.nio.file.FileAlreadyExistsException;
 /**
  * Created by lenovo on 2014/5/20.
  */
-public class FileAction extends BaseAction {
+public class FileAction extends JsonAction {
     //services
     FileService fileService;
 
     //output
     InputStream inputStream;
     String filename;
-    int code=DirectoryAction.CODE_SUCCESS;
 
     //input
     String path;
@@ -101,10 +100,6 @@ public class FileAction extends BaseAction {
 
     public InputStream getInputStream(){
         return inputStream;
-    }
-
-    public int getCode(){
-        return code;
     }
 
     public void setFileService(FileService fileService) {

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by lenovo on 2014/5/20.
  */
-public class DirectoryAction extends BaseAction {
+public class DirectoryAction extends JsonAction {
 
     FileService fileService;
 
@@ -21,7 +21,6 @@ public class DirectoryAction extends BaseAction {
 
     //ouput params
     List<HashMap<String,Object>> fileList;
-    int code=CODE_SUCCESS;
 
     public String listDir(){
         if(path==null){
@@ -51,11 +50,6 @@ public class DirectoryAction extends BaseAction {
     @JSON(name="fileList")
     public List<HashMap<String,Object>> getFileList() {
         return fileList;
-    }
-
-    @JSON(name="code")
-    public int getCode() {
-        return code;
     }
 
     public void setPath(String path) {

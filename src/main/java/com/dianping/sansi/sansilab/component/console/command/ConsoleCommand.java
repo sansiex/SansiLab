@@ -2,10 +2,7 @@ package com.dianping.sansi.sansilab.component.console.command;
 
 import com.dianping.sansi.sansilab.component.console.Console;
 
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 
 /**
  * Created by lenovo on 2014/6/14.
@@ -13,19 +10,14 @@ import java.io.Writer;
 public interface ConsoleCommand {
     /**
      *
-     * @param args
+     * @param cmd
      * First element of the array is the name of the command and the following elements are actual arguments
-     * @param is
-     * @param os
+     * @param reader
+     * @param writer
      */
-    void doCommand(String[] args, PipedInputStream is, PipedOutputStream os, Console csl);
+    void doCommand(String[] cmd, Reader reader, Writer writer, Console csl) throws IOException;
 
-    /**
-     *
-     * @param args
-     * First element of the array is the name of the command and the following elements are actual arguments
-     * @param is
-     * @param os
-     */
-    void doCommand(String[] args, Reader is, Writer os, Console csl);
+    default public void writeLine(Writer w, String line) throws IOException {
+        w.write(line+System.lineSeparator());
+    }
 }
