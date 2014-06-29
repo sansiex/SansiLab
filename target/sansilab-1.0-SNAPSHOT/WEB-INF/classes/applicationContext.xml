@@ -120,26 +120,6 @@ maxStatementsPerConnection均为0，则缓存被关闭。默认为0； -->
     </bean>
 
     <!-- action, service and dao -->
-    <bean id="baseAction" class="com.dianping.sansi.sansilab.action.BaseAction">
-        <property name="logService">
-            <ref bean="logService" />
-        </property>
-    </bean>
-
-    <bean id="logService"
-          class="com.dianping.sansi.sansilab.service.LogService">
-        <property name="logEntryDao">
-            <ref bean="logEntryDao" />
-        </property>
-    </bean>
-
-    <bean id="logEntryDao"
-          class="com.dianping.sansi.sansilab.dao.LogEntryDao">
-        <property name="sessionFactory">
-            <ref bean="sessionFactory" />
-        </property>
-    </bean>
-
     <bean id="consoleAction" class="com.dianping.sansi.sansilab.action.ConsoleAction">
         <property name="consoleService">
             <ref bean="consoleService" />
@@ -164,5 +144,19 @@ maxStatementsPerConnection均为0，则缓存被关闭。默认为0； -->
 
     <bean id="fileService"
           class="com.dianping.sansi.sansilab.service.FileService">
+    </bean>
+
+    <bean id="logService"
+          class="com.dianping.sansi.sansilab.service.LogService">
+        <property name="logEntryDao">
+            <ref bean="logEntryDao" />
+        </property>
+    </bean>
+
+    <bean id="logEntryDao"
+          class="com.dianping.sansi.sansilab.dao.LogEntryDao">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
     </bean>
 </beans>

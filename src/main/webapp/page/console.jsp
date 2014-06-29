@@ -21,17 +21,7 @@
 
     <script src="/js/console.js"></script>
     <script type="text/javascript">
-        push.joinListen('/console/output',handleConsoleOutput);
-
-        $(document).ready(function(){
-            editor = CodeMirror(document.getElementById('console'),{
-                mode:'javascript'
-                ,theme:'eclipse'
-                ,value:'function my(){return 100;}\n12345678\n12345'
-                //,lineNumbers: true
-            });
-            registerEvent();
-        });
+        init();
     </script>
 </head>
 <body>
@@ -40,13 +30,25 @@
     <div class="jumbotron">
         <h2>Console</h2>
     </div>
+    <hr>
+    <span style="">Working Directory:</span>
+    <p id="pwd" style="">d:\</p>
+    <hr>
     <div class="row">
         <div class="col-md-12">
-            <hr>
+            <button class="btn btn-primary" onclick="execute();" id="exec">Execute</button>
+            <button class="btn btn-secondary" onclick="clearOutput();" id="clear">Clear</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
             <fieldset >
-                <div id="console" style="border:solid grey 3px"></div>
+                <div id="console" style="border:solid grey 3px;height:500px"></div>
             </fieldset>
-
+        </div>
+        <div class="col-md-6">
+            <textarea id="output" readonly style="width: 100%;height:500;border:solid grey 3px"></textarea>
         </div>
     </div>
 </div>

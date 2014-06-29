@@ -1,9 +1,11 @@
 package com.dianping.sansi.sansilab.component.console.command;
 
-import com.dianping.sansi.sansilab.component.console.Console;
-import com.dianping.sansi.sansilab.component.file.TextFileReader;
+import com.dianping.sansi.sansilab.component.console.ConsoleTask;
+import com.dianping.sansi.sansilab.component.file.TextReader;
+import com.dianping.sansi.sansilab.utils.StringHelper;
 
 import java.io.*;
+import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,11 +14,11 @@ import java.util.regex.Pattern;
  */
 public class GrepCommand implements ConsoleCommand{
     @Override
-    public void doCommand(String[] cmd, Reader reader, Writer writer, Console csl) throws IOException {
+    public void doCommand(String[] cmd, Reader reader, Writer writer, ConsoleTask task) throws IOException {
+        //System.out.println("Execute command: "+StringHelper.join(cmd));
         int index=1;
         if(index>=cmd.length){
-            writeLine(writer, Console.OUTPUT_ERROR_HEAD);
-            writeLine(writer, "Lack of arguments.");
+            task.raiseError("Error: Lack of arguments.",this);
             return;
         }
 
@@ -31,15 +33,13 @@ public class GrepCommand implements ConsoleCommand{
                         flag|=Pattern.CASE_INSENSITIVE;
                         break;
                     default:
-                        writeLine(writer, Console.OUTPUT_ERROR_HEAD);
-                        writeLine(writer, "Can't recognize option '" + c + "'.");
+                        task.raiseError("Error: Can't recognize option '" + c + "'.",this);
                         return;
                 }
             }
 
             if(index>=cmd.length){
-                writeLine(writer, Console.OUTPUT_ERROR_HEAD);
-                writeLine(writer, "Lack of pattern.");
+                task.raiseError("Error: Lack of pattern.",this);
                 return;
             }
             reg=cmd[index++];
@@ -51,27 +51,35 @@ public class GrepCommand implements ConsoleCommand{
         Reader r=reader;
         if(r==null){
             if(index>=cmd.length){
-                writeLine(writer, Console.OUTPUT_ERROR_HEAD);
-                writeLine(writer, "Lack of input.");
+                task.raiseError("Error: Lack of input.",this);
                 return;
             }
             r=new FileReader(cmd[index++]);
         }
-        TextFileReader tfr=new TextFileReader(r);
+        TextReader tfr=new TextReader(r);
 
         String line=tfr.readLine();
         while(line!=null){
             Matcher m=p.matcher(line);
+
             if(m.find()){
+                if(task.isError()){
+                    tfr.close();
+                    return;
+                }
                 writeLine(writer, line);
             }
             line=tfr.readLine();
+        }
+        tfr.close();
+        if(reader==null){
+            r.close();
         }
         writer.flush();
     }
 
     public static void main(String[] args) throws IOException {
         GrepCommand gc=new GrepCommand();
-        gc.doCommand(new String[]{"grep","-i","a","e:\\data\\test.txt"},null,new OutputStreamWriter(System.out),new Console());
+        gc.doCommand(new String[]{"grep","-i","a","e:\\data\\test.txt"},null,new OutputStreamWriter(System.out),null);
     }
 }

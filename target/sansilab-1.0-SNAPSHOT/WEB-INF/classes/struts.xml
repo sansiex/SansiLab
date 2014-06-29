@@ -22,7 +22,7 @@
         </action>
     </package>
 
-    <package name="console" extends="json-default" namespace="/console">
+    <package name="console" extends="json-default,struts-default" namespace="/console">
         <action name="exec" class="com.dianping.sansi.sansilab.action.ConsoleAction" method="exec">
             <result type="json"/>
         </action>

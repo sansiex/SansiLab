@@ -7,7 +7,7 @@ public class CommandNotFountException extends Exception {
     private String cmd;
 
     public CommandNotFountException(String cmd){
-        this.cmd=cmd;
+        super(cmd);this.cmd=cmd;
     }
 
     public String getCommand(){

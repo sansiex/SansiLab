@@ -18,10 +18,10 @@ public class BaseAction extends ActionSupport {
     public static final int CODE_COMMAND_NOT_FOUND=2001;
     public static final int CODE_INVALID_COMMAND=2002;
 
-    protected LogService logService;
-
-    public void setLogService(LogService logService) {
-        this.logService = logService;
-    }
+//    protected LogService logService;
+//
+//    public void setLogService(LogService logService) {
+//        this.logService = logService;
+//    }
 
 }

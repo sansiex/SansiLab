@@ -1,6 +1,7 @@
 package com.dianping.sansi.sansilab.component.console.command;
 
 import com.dianping.sansi.sansilab.component.console.Console;
+import com.dianping.sansi.sansilab.component.console.ConsoleTask;
 
 import java.io.*;
 
@@ -8,6 +9,7 @@ import java.io.*;
  * Created by lenovo on 2014/6/14.
  */
 public interface ConsoleCommand {
+
     /**
      *
      * @param cmd
@@ -15,7 +17,7 @@ public interface ConsoleCommand {
      * @param reader
      * @param writer
      */
-    void doCommand(String[] cmd, Reader reader, Writer writer, Console csl) throws IOException;
+    void doCommand(String[] cmd, Reader reader, Writer writer, ConsoleTask task) throws IOException;
 
     default public void writeLine(Writer w, String line) throws IOException {
         w.write(line+System.lineSeparator());

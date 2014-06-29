@@ -1,6 +1,7 @@
 package com.dianping.sansi.sansilab.action;
 
 import com.dianping.sansi.sansilab.service.FileService;
+import org.apache.struts2.json.annotations.JSON;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -10,13 +11,14 @@ import java.nio.file.FileAlreadyExistsException;
 /**
  * Created by lenovo on 2014/5/20.
  */
-public class FileAction extends JsonAction {
+public class FileAction extends BaseAction {
     //services
     FileService fileService;
 
     //output
     InputStream inputStream;
     String filename;
+    protected int code=BaseAction.CODE_SUCCESS;
 
     //input
     String path;
@@ -100,6 +102,11 @@ public class FileAction extends JsonAction {
 
     public InputStream getInputStream(){
         return inputStream;
+    }
+
+    @JSON(name="code")
+    public int getCode(){
+        return code;
     }
 
     public void setFileService(FileService fileService) {

@@ -9,6 +9,7 @@ public class CommandManager {
     private static CommandManager instance;
     private CommandManager(){
         register("cat",new CatCommand());
+        register("grep",new GrepCommand());
     }
 
     public static CommandManager getInstance(){
