@@ -1,17 +1,12 @@
-package com.dianping.sansi.sansilab.component.file;
+package com.dianping.sansi.sansilab.components.file;
 
-import com.dianping.sansi.sansilab.component.file.FileSystemUtils;
-import com.dianping.sansi.sansilab.component.file.NotDirectoryException;
+import com.dianping.sansi.sansilab.components.file.FileSystemUtils;
+import com.dianping.sansi.sansilab.components.file.NotDirectoryException;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.file.AccessDeniedException;
-import java.nio.file.FileAlreadyExistsException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by lenovo on 2014/6/12.

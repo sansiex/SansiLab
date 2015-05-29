@@ -1,12 +1,14 @@
 package com.dianping.sansi.sansilab.service;
 
-import com.dianping.sansi.sansilab.component.console.Console;
+import com.dianping.sansi.sansilab.components.console.Console;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
 /**
  * Created by lenovo on 2014/6/15.
  */
+@Service
 public class ConsoleService {
     private static HashMap<Long,Console> consoleMap=new HashMap<>();
 

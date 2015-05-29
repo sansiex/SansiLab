@@ -1,18 +1,17 @@
-package com.dianping.sansi.sansilab.component.console.command;
+package com.dianping.sansi.sansilab.components.console.command;
 
-import com.dianping.sansi.sansilab.component.console.ConsoleTask;
-import com.dianping.sansi.sansilab.component.file.TextReader;
+import com.dianping.sansi.sansilab.components.console.ConsoleTask;
+import com.dianping.sansi.sansilab.components.file.TextReader;
 import com.dianping.sansi.sansilab.utils.StringHelper;
 
 import java.io.*;
-import java.util.StringJoiner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Created by lenovo on 2014/6/22.
  */
-public class GrepCommand implements ConsoleCommand{
+public class GrepCommand extends com.dianping.sansi.sansilab.components.console.command.ConsoleCommand {
     @Override
     public void doCommand(String[] cmd, Reader reader, Writer writer, ConsoleTask task) throws IOException {
         //System.out.println("Execute command: "+StringHelper.join(cmd));

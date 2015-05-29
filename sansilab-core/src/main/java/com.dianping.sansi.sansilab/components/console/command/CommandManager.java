@@ -1,4 +1,6 @@
-package com.dianping.sansi.sansilab.component.console.command;
+package com.dianping.sansi.sansilab.components.console.command;
+
+import com.dianping.sansi.sansilab.components.console.command.GrepCommand;
 
 import java.util.HashMap;
 

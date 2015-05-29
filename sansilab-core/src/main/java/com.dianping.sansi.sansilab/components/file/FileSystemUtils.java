@@ -1,9 +1,8 @@
-package com.dianping.sansi.sansilab.component.file;
+package com.dianping.sansi.sansilab.components.file;
 
 import java.io.*;
 import java.nio.file.AccessDeniedException;
 import java.security.InvalidParameterException;
-import java.util.List;
 
 /**
  * Created by sansi on 2014/5/22.

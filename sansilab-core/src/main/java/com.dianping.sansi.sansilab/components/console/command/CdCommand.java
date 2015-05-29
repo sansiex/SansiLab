@@ -1,7 +1,7 @@
-package com.dianping.sansi.sansilab.component.console.command;
+package com.dianping.sansi.sansilab.components.console.command;
 
-import com.dianping.sansi.sansilab.component.console.Console;
-import com.dianping.sansi.sansilab.component.console.ConsoleTask;
+import com.dianping.sansi.sansilab.components.console.Console;
+import com.dianping.sansi.sansilab.components.console.ConsoleTask;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Created by lenovo on 2014/6/29.
  */
-public class CdCommand implements ConsoleCommand{
+public class CdCommand extends ConsoleCommand{
 
     @Override
     public void doCommand(String[] cmd, Reader reader, Writer writer, ConsoleTask task) throws IOException {

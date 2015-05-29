@@ -1,4 +1,4 @@
-package com.dianping.sansi.sansilab.component.console.exception;
+package com.dianping.sansi.sansilab.components.console.exception;
 
 /**
  * Created by lenovo on 2014/6/14.

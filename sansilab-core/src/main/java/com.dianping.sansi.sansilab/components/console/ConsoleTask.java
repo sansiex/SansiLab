@@ -1,10 +1,10 @@
-package com.dianping.sansi.sansilab.component.console;
+package com.dianping.sansi.sansilab.components.console;
 
-import com.dianping.sansi.interpreter.interpreter.script.node.*;
-import com.dianping.sansi.sansilab.component.console.command.CommandManager;
-import com.dianping.sansi.sansilab.component.console.command.ConsoleCommand;
-import com.dianping.sansi.sansilab.component.console.exception.CommandNotFountException;
-import com.dianping.sansi.sansilab.component.console.exception.InvalidCommandException;
+import com.dianping.sansi.sansilab.interpreter.interpreter.script.node.*;
+import com.dianping.sansi.sansilab.components.console.command.CommandManager;
+import com.dianping.sansi.sansilab.components.console.command.ConsoleCommand;
+import com.dianping.sansi.sansilab.components.console.exception.CommandNotFountException;
+import com.dianping.sansi.sansilab.components.console.exception.InvalidCommandException;
 
 import java.io.*;
 
@@ -44,14 +44,18 @@ public class ConsoleTask {
         writer.write(String.valueOf(val));
     }
 
-    protected void execPipe(PipeNode pn, Reader reader, Writer writer) throws IOException, CommandNotFountException, InvalidCommandException {
-        PipedReader pr=new PipedReader();
-        PipedWriter pw=new PipedWriter(pr);
+    protected void execPipe(PipeNode pn, final Reader reader, final Writer writer) throws IOException, CommandNotFountException, InvalidCommandException {
+        final PipedReader pr=new PipedReader();
+        final PipedWriter pw=new PipedWriter(pr);
 
-        Node c1=pn.jjtGetChild(0);
-        Node c2=pn.jjtGetChild(1);
+        final Node c1=pn.jjtGetChild(0);
+        final Node c2=pn.jjtGetChild(1);
 
-        new Thread(() -> {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
             try{
                 execUnit(c1, reader, pw);
             } catch (IOException e) {
@@ -67,7 +71,7 @@ public class ConsoleTask {
                     e.printStackTrace();
                 }
             }
-        }).start();
+        }}).start();
 
         execUnit(c2,pr,writer);
         pr.close();

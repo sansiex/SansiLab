@@ -1,7 +1,8 @@
 package com.dianping.sansi.sansilab.service;
 
-import com.dianping.sansi.sansilab.component.file.FileSystemUtils;
-import com.dianping.sansi.sansilab.component.file.NotDirectoryException;
+import com.dianping.sansi.sansilab.components.file.FileSystemUtils;
+import com.dianping.sansi.sansilab.components.file.NotDirectoryException;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.FileSystem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by sansi on 2014/5/22.
  */
+@Service
 public class FileService {
     public List<HashMap<String,Object>> listDirectory(String path) throws FileNotFoundException, NotDirectoryException, AccessDeniedException {
         path=transformPath(path);

@@ -1,4 +1,4 @@
-package com.dianping.sansi.sansilab.component.file;
+package com.dianping.sansi.sansilab.components.file;
 
 /**
  * Created by sansi on 2014/5/22.

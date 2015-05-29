@@ -1,6 +1,5 @@
 package com.dianping.sansi.sansilab.utils;
 
-import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.StringJoiner;
 

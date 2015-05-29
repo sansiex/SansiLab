@@ -1,12 +1,12 @@
-package com.dianping.sansi.sansilab.component.console;
+package com.dianping.sansi.sansilab.components.console;
 
-import com.dianping.sansi.interpreter.controller.ScriptInterpretor;
-import com.dianping.sansi.interpreter.interpreter.script.ParseException;
-import com.dianping.sansi.interpreter.interpreter.script.node.*;
-import com.dianping.sansi.sansilab.component.console.command.CommandManager;
-import com.dianping.sansi.sansilab.component.console.command.ConsoleCommand;
-import com.dianping.sansi.sansilab.component.console.exception.CommandNotFountException;
-import com.dianping.sansi.sansilab.component.console.exception.InvalidCommandException;
+import com.dianping.sansi.sansilab.interpreter.controller.ScriptInterpretor;
+import com.dianping.sansi.sansilab.interpreter.interpreter.script.ParseException;
+import com.dianping.sansi.sansilab.interpreter.interpreter.script.node.*;
+import com.dianping.sansi.sansilab.components.console.command.CommandManager;
+import com.dianping.sansi.sansilab.components.console.command.ConsoleCommand;
+import com.dianping.sansi.sansilab.components.console.exception.CommandNotFountException;
+import com.dianping.sansi.sansilab.components.console.exception.InvalidCommandException;
 
 import java.io.*;
 import java.util.HashMap;

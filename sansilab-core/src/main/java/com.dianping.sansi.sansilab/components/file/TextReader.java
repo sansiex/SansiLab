@@ -1,4 +1,4 @@
-package com.dianping.sansi.sansilab.component.file;
+package com.dianping.sansi.sansilab.components.file;
 
 import java.io.*;
 

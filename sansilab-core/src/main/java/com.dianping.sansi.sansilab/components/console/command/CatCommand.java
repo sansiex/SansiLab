@@ -1,8 +1,8 @@
-package com.dianping.sansi.sansilab.component.console.command;
+package com.dianping.sansi.sansilab.components.console.command;
 
-import com.dianping.sansi.sansilab.component.console.Console;
-import com.dianping.sansi.sansilab.component.console.ConsoleTask;
-import com.dianping.sansi.sansilab.component.file.TextReader;
+import com.dianping.sansi.sansilab.components.console.Console;
+import com.dianping.sansi.sansilab.components.console.ConsoleTask;
+import com.dianping.sansi.sansilab.components.file.TextReader;
 import com.dianping.sansi.sansilab.utils.StringHelper;
 
 import java.io.*;
@@ -10,7 +10,7 @@ import java.io.*;
 /**
  * Created by lenovo on 2014/6/12.
  */
-public class CatCommand implements ConsoleCommand{
+public class CatCommand extends ConsoleCommand{
     @Override
     public void doCommand(String[] cmd, Reader reader, Writer writer, ConsoleTask task) throws IOException {
         if(cmd.length<2){
