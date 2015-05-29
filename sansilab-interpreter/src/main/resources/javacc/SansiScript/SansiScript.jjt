@@ -1,0 +1,100 @@
+options{
+    STATIC = false;
+    MULTI = true;
+    NODE_PREFIX = "";
+}
+PARSER_BEGIN(SansiScript)
+import com.dianping.sansi.interpreter.interpreter.script.node.*;
+import java.io.StringReader;
+
+public class SansiScript{
+    public static void main(String[] args) throws ParseException, TokenMgrError{
+//        SansiScript parser = new SansiScript(System.in);
+//        SimpleNode root=parser.statement();
+//        SimpleNode n= (SimpleNode) root.jjtGetChild(0);
+//        root.dump("");
+//        if(n instanceof ExpressionNode){
+//            System.out.println(((ExpressionNode) n).getValue());
+//        }
+//        if (n instanceof CommandNode) {
+//            System.out.println(((CommandNode) n).getCommand());
+//        }
+        test("cat e:\\data\\test.txt | grep -i a | grep -i b\n");
+    }
+
+    protected static void test(String input) throws ParseException {
+        StringReader sr=new StringReader(input);
+        SansiScript parser = new SansiScript(sr);
+        SimpleNode root=parser.statement();
+        root.dump("");
+    }
+}
+PARSER_END(SansiScript)
+
+SKIP:{" "}
+TOKEN:{< EOL: "\n"|"\r"|"\r\n">}
+TOKEN:{
+    < PLUS : "+">
+|    < MINUS : "-">
+|    < TIMES : "*">
+|    < DIVIDE : "/">
+|    < LPAREN : "(">
+|    < RPAREN : ")">
+}
+TOKEN:{< NUMBER : (["0"-"9"])+ >}
+TOKEN:{< PIPE : "|" >}
+TOKEN:{
+    < IDENTIFIER : ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","0"-"9","_"])* >
+|   < ARGUMENT : (["a"-"z","A"-"Z","0"-"9","-","_",".","=",":","\\"])+ >
+}
+
+ProcedureNode procedure() #ProcedureNode:{}{
+    (statement())+(<EOF>)?
+    {return jjtThis;}
+}
+
+StatementNode statement() #StatementNode:{}{
+    (expression()<EOL>
+    |command()(<PIPE>command() #PipeNode(2))*<EOL>
+    )
+    {return jjtThis;}
+}
+
+//Calculator
+
+void expression() #ExpressionNode:{}{
+    term()
+    (
+        (<PLUS>term() #AddNode(2))
+        |
+        (<MINUS>term() #MinusNode(2))
+    )*
+}
+
+void term() #TermNode:{}{
+    factor()
+    (
+        (<TIMES>factor() #TimesNode(2))
+        |
+        (<DIVIDE>factor() #DivideNode(2))
+    )*
+}
+
+void factor() #FactorNode:{
+    Token token;
+}{
+    (token=<NUMBER>{jjtThis.setText(token.image);})
+    |(<LPAREN>expression()<RPAREN>)
+}
+
+//Command
+void command() #CommandNode:{
+    Token t;
+}{
+    t=<IDENTIFIER>{jjtThis.add(t.image);}
+    (
+    t=<ARGUMENT>{jjtThis.add(t.image);}
+    |
+    t=<IDENTIFIER>{jjtThis.add(t.image);}
+    )*
+}

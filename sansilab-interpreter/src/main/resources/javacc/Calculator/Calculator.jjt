@@ -1,0 +1,65 @@
+options{
+    STATIC = false;
+    MULTI = true;
+    NODE_PREFIX = "";
+}
+PARSER_BEGIN(Calculator)
+public class Calculator{
+    public static void main(String[] args) throws ParseException, TokenMgrError{//作者这里没有加public,这会在某些情况下产生错误（译注）
+            Calculator parser = new Calculator(System.in);
+            SimpleNode root=parser.statement();
+        ExpressionNode en=(ExpressionNode)root.jjtGetChild(0);
+        System.out.println(en.getValue());
+
+    }
+}
+PARSER_END(Calculator)
+
+SKIP:{" "}
+TOKEN:{< EOL: "\n"|"\r"|"\r\n">}
+TOKEN:{
+    < PLUS : "+">
+|    < MINUS : "-">
+|    < TIMES : "*">
+|    < DIVIDE : "/">
+|    < LPAREN : "(">
+|    < RPAREN : ")">
+}
+TOKEN:{< NUMBER : (["0"-"9"])+ >}
+
+SimpleNode procedure() #ProcedureNode:{}{
+    (statement())+<EOF>
+    {return jjtThis;}
+}
+
+SimpleNode statement() #StatementNode:{}{
+    expression()<EOL>
+    {return jjtThis;}
+}
+
+//Calculator
+
+void expression() #ExpressionNode:{}{
+    term()
+    (
+        (<PLUS>term() #AddNode(2))
+        |
+        (<MINUS>term() #MinusNode(2))
+    )*
+}
+
+void term() #TermNode:{}{
+    factor()
+    (
+        (<TIMES>factor() #TimesNode(2))
+        |
+        (<DIVIDE>factor() #DivideNode(2))
+    )*
+}
+
+void factor() #FactorNode:{
+    Token token;
+}{
+    (token=<NUMBER>{jjtThis.setText(token.image);})
+    |(<LPAREN>expression()<RPAREN>)
+}
