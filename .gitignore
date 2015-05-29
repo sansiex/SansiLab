@@ -51,4 +51,6 @@ target/
 
 # Java
 .class
+**.class
+target/
 
