@@ -11,6 +11,8 @@
         <module>sansilab-web</module>
         <module>sansilab-core</module>
         <module>sansilab-interpreter</module>
+        <module>netty-test</module>
+        <module>sparksql-test</module>
     </modules>
     <packaging>pom</packaging>
 

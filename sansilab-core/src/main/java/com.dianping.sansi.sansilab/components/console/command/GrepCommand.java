@@ -2,7 +2,6 @@ package com.dianping.sansi.sansilab.components.console.command;
 
 import com.dianping.sansi.sansilab.components.console.ConsoleTask;
 import com.dianping.sansi.sansilab.components.file.TextReader;
-import com.dianping.sansi.sansilab.utils.StringHelper;
 
 import java.io.*;
 import java.util.regex.Matcher;
