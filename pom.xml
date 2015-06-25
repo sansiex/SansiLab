@@ -13,6 +13,8 @@
         <module>sansilab-interpreter</module>
         <module>netty-test</module>
         <module>sparksql-test</module>
+        <module>sansilab-experiment</module>
+        <module>storm-test</module>
     </modules>
     <packaging>pom</packaging>
 
