@@ -4,6 +4,7 @@ import com.dianping.analytics.shopuser.entity.FanCount;
 import com.dianping.analytics.shopuser.service.ShopUserService;
 import com.dianping.elasticsearch.aggregations.Aggregations;
 import com.dianping.elasticsearch.conditions.Conditions;
+import com.dianping.elasticsearch.entities.IndexCheckResult;
 import com.dianping.elasticsearch.query.ESQuery;
 import com.dianping.elasticsearch.services.ElasticSearchService;
 import com.dianping.pigeon.remoting.ServiceFactory;
@@ -20,10 +21,16 @@ import java.util.List;
 public class TestService {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        esTest();
+        indexTest();
         long end = System.currentTimeMillis();
         System.out.println(end - start);
         System.exit(0);
+    }
+
+    public static void indexTest(){
+        ElasticSearchService svc = ServiceFactory.getService("http://service.dianping.com/dw/elasticsearch/service", ElasticSearchService.class);
+        IndexCheckResult res = svc.checkIndices("es_ca_use_details.2015-06-11", "es_ca_use_details.2015-06-12");
+        print(res);
     }
 
     public static void shopUserTest(){
@@ -49,14 +56,10 @@ public class TestService {
     public static void esTest(){
         ElasticSearchService svc = ServiceFactory.getService("http://service.dianping.com/dw/elasticsearch/service", ElasticSearchService.class);
         ESQuery query = svc.buildQuery("es_ca_use_details")
-                .setDate("2015-04-15")
-                .groupBy("ca_tool_title", 100, null, null)
-                .addCondition(Conditions.regex("ca_tool_title", "4.*"))
-                .addCondition(Conditions.or(
-                        Conditions.range("ca_cost").lte(20.0)
-                        , Conditions.range("ca_cost").gte(50.0)
-                ))
-                .addAggregation(Aggregations.max("c").field("ca_cost"));
+                .setDate(null)
+//                .groupBy("ca_tool_title", 100, null, null)
+                .addCondition(Conditions.isNull("dpid_phone_model"))
+                .addAggregation(Aggregations.count("c").field("ca_use_pk"));
 
         printQuery(svc, query);
 

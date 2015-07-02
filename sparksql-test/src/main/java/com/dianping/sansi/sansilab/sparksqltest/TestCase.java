@@ -15,7 +15,8 @@ import java.util.Map;
 public class TestCase {
     public static void main(String[] args) {
         String appName = "testApp";
-        String master = "spark://hadoop-b01.beta:7077";
+//        String master = "spark://hadoop-b01.beta:7077";
+        String master="local";
 
         SparkConf conf = new SparkConf().setAppName(appName).setMaster(master);
         conf.set("es.index.auto.create", "true");

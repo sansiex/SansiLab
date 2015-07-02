@@ -15,6 +15,7 @@
         <module>sparksql-test</module>
         <module>sansilab-experiment</module>
         <module>storm-test</module>
+        <module>blackhole-test</module>
     </modules>
     <packaging>pom</packaging>
 
