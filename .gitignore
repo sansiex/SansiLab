@@ -53,3 +53,5 @@ target/
 .class
 *.class
 
+
+sparksql-test/target

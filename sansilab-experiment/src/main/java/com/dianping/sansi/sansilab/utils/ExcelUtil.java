@@ -19,7 +19,7 @@ import java.util.Date;
  */
 public class ExcelUtil {
     public static void main(String[] args) {
-        String path="d:/tmp/a.xlsx";
+        String path="d:/tmp/a.xls";
         try
         {
             // 构造 XSSFWorkbook 对象，strPath 传入文件路径
@@ -48,12 +48,12 @@ public class ExcelUtil {
                             double value = cell.getNumericCellValue();
                             Date date = org.apache.poi.ss.usermodel.DateUtil
                                     .getJavaDate(value);
-                            val = sdf.format(date);
+                            val = "D:"+sdf.format(date);
                         } else {
-                            val = cell.getRawValue();
+                            val = "N:"+cell.getRawValue();
                         }
                     } else {
-                        val = cell.getRawValue();
+                        val = "S:"+cell.getStringCellValue();
                     }
                     System.out.print(val + "\t");
                 }
