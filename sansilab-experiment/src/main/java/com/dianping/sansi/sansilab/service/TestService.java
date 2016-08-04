@@ -104,11 +104,11 @@ public class TestService {
 
     public static void searchTest(){
         ElasticSearchService svc = ServiceFactory.getService("http://service.dianping.com/dw/elasticsearch/service", ElasticSearchService.class, 60000);
-        ESSearch search = svc.buildSearch("es_ca_trade_use_details_ss_summary")
-                .addSort("ca_tool_id", true)
+        ESSearch search = svc.buildSearch("es_tpuser_dp_dim_tags")
+//                .addSort("ca_tool_id", true)
 //                .setSize(10)
 //                .groupBy("ca_tool_title", 100, null, null)
-                .setFields(new String[]{"ca_tool_id", "op_cost"});
+                .setFields(new String[]{"user_id", "tags.a"});
 
         printSearch(svc, search);
 

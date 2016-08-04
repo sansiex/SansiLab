@@ -16,6 +16,7 @@
         <module>sansilab-experiment</module>
         <module>storm-test</module>
         <module>leetcode</module>
+        <module>codejam</module>
     </modules>
     <packaging>pom</packaging>
 
