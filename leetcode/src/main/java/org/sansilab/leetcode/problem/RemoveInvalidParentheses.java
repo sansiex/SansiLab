@@ -86,5 +86,7 @@ public final class RemoveInvalidParentheses {
                 }
             }
         }
+
+        return null;
     }
 }

@@ -7,6 +7,7 @@ import org.sansilab.leetcode.utils.JsonUtils;
  */
 public class BaseProblem {
     protected void printResult(Object result){
-        JsonUtils.toJson(result);
+
+        System.out.println(JsonUtils.toJson(result));
     }
 }
