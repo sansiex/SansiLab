@@ -17,7 +17,8 @@ public class ArrayParser implements ParamParser {
 
     @Override
     public Object parse(String str) {
-        String[] arr = str.substring(1, str.length()-1).split(",\\s*");
+        String s = str.trim();
+        String[] arr = s.substring(1, s.length()-1).split(",\\s*");
         Object values = Array.newInstance(innerClass, arr.length);
 
         for (int i = 0; i < arr.length; i++) {

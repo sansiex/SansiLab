@@ -51,8 +51,10 @@ public abstract class AbstractProblem {
             long s = System.currentTimeMillis();
             Object ret = execute(args);
             long e = System.currentTimeMillis();
-            System.out.println("output: "+ ret.toString());
-            System.out.println("expected: "+ outputList.get(i).toString());
+            String output = JsonUtils.toJson(ret);
+            System.out.println("output: "+ output);
+            String expect = JsonUtils.toJson(outputList.get(i));
+            System.out.println("expected: "+ expect);
             System.out.println("took: "+(e-s));
         }
     }
@@ -60,4 +62,8 @@ public abstract class AbstractProblem {
     abstract void init();
 
     abstract Object execute(Object[] input);
+
+    protected void addInput(String... params){
+        inputList.add(params);
+    }
 }
