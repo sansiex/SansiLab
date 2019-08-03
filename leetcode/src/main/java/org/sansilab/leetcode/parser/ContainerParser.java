@@ -1,6 +1,6 @@
 package org.sansilab.leetcode.parser;
 
-public abstract class ContainerParser<T extends ParamParser> implements ParamParser {
+public abstract class ContainerParser implements ParamParser {
 
     abstract String[] extractContent(String s);
 

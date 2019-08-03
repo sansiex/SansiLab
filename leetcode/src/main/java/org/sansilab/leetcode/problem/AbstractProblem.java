@@ -6,6 +6,7 @@ import org.sansilab.leetcode.parser.ParamParser;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public abstract class AbstractProblem {
@@ -15,6 +16,8 @@ public abstract class AbstractProblem {
     protected List outputList;
 
     protected List<ParamParser> parserList;
+
+    protected ParamParser outputParser;
 
     public AbstractProblem(){
         inputList = Lists.newArrayList();
@@ -42,9 +45,10 @@ public abstract class AbstractProblem {
     protected void runTest(){
         init();
         List<Object[]> params = generateInput();
+        List<Integer> errors = Lists.newArrayList();
 
         for (int i = 0; i < inputList.size(); i++) {
-            System.out.println("start test case #"+i);
+            System.out.println("start test case #"+i+" >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             String inputStr = Joiner.on(", ").join(inputList.get(i));
             System.out.println("input: "+ inputStr);
             Object[] args = params.get(i);
@@ -54,8 +58,17 @@ public abstract class AbstractProblem {
             String output = JsonUtils.toJson(ret);
             System.out.println("output: "+ output);
             String expect = JsonUtils.toJson(outputList.get(i));
+            if (!Objects.equals(output, expect)) {
+                errors.add(i);
+            }
             System.out.println("expected: "+ expect);
             System.out.println("took: "+(e-s));
+        }
+
+        if (errors.isEmpty()) {
+            System.out.println("All tests passed!");
+        } else {
+            System.out.println("Error cases: " + Joiner.on(", ").join(errors));
         }
     }
 
@@ -65,5 +78,14 @@ public abstract class AbstractProblem {
 
     protected void addInput(String... params){
         inputList.add(params);
+    }
+
+    public void setOutputParser(ParamParser outputParser) {
+        this.outputParser = outputParser;
+    }
+
+    protected void addOutput(String out) {
+        Object val = outputParser.parse(out);
+        outputList.add(val);
     }
 }
