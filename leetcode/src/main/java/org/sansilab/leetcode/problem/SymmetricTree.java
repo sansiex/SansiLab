@@ -1,5 +1,6 @@
 package org.sansilab.leetcode.problem;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 public class SymmetricTree {
@@ -13,7 +14,7 @@ public class SymmetricTree {
 		System.out.println(JsonUtils.toJson(output));
 	}
 	
-	public boolean isMirror(TreeNode l,TreeNode r){
+	public boolean isMirror(TreeNode l, TreeNode r){
 		if(l==null && r==null){
 			return true;
 		}else if(l==null || r==null){

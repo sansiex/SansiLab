@@ -1,6 +1,7 @@
 package org.sansilab.leetcode.problem;
 
 import com.google.common.collect.Lists;
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 import java.util.List;

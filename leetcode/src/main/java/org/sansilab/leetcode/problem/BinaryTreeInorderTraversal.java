@@ -3,6 +3,7 @@ package org.sansilab.leetcode.problem;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 public class BinaryTreeInorderTraversal {

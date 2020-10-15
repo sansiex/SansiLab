@@ -2,6 +2,7 @@ package org.sansilab.leetcode.problem;
 
 import java.util.ArrayList;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 public class RecoverBinarySearchTree {

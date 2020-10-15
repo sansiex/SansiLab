@@ -2,6 +2,7 @@ package org.sansilab.leetcode.problem;
 
 import java.util.ArrayList;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 public class BinaryTreeLevelOrderTraversal {
@@ -15,7 +16,7 @@ public class BinaryTreeLevelOrderTraversal {
 		System.out.println(JsonUtils.toJson(output));
 	}
 	
-	public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {		
+	public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
 		ArrayList<ArrayList<Integer>> list=new ArrayList<>();
 		if(root==null){
 			return list;

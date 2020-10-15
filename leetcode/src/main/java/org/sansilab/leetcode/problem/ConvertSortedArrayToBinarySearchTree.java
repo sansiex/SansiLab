@@ -1,5 +1,6 @@
 package org.sansilab.leetcode.problem;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 public class ConvertSortedArrayToBinarySearchTree {
@@ -13,7 +14,7 @@ public class ConvertSortedArrayToBinarySearchTree {
 		System.out.println(JsonUtils.toJson(output));
 	}
 	
-	public TreeNode sortedArrayToBST(int[] num,int s,int e) {
+	public TreeNode sortedArrayToBST(int[] num, int s, int e) {
 		if(num==null || s>e){
         	return null;
         }

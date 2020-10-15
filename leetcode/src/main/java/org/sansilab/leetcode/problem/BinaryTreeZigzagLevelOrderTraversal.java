@@ -3,6 +3,7 @@ package org.sansilab.leetcode.problem;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 public class BinaryTreeZigzagLevelOrderTraversal {
@@ -16,7 +17,7 @@ public class BinaryTreeZigzagLevelOrderTraversal {
 		System.out.println(JsonUtils.toJson(output));
 	}
 	
-	public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {		
+	public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
 		ArrayList<ArrayList<Integer>> list=new ArrayList<>();
 		if(root==null){
 			return list;

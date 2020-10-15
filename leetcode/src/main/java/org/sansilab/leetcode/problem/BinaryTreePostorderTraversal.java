@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 public class BinaryTreePostorderTraversal {
@@ -16,7 +17,7 @@ public class BinaryTreePostorderTraversal {
 		//InitUtils.printSinglyList((ListNode)output);
 	}
 	
-	public ArrayList<Integer> postorderTraversal(TreeNode root) {		
+	public ArrayList<Integer> postorderTraversal(TreeNode root) {
         ArrayList<Integer> ret=new ArrayList<Integer>();
         if(root==null){
 			return ret;

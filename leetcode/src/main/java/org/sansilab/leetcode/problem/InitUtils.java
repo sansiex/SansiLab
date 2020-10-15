@@ -1,5 +1,6 @@
 package org.sansilab.leetcode.problem;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 import java.util.ArrayList;
@@ -129,21 +130,21 @@ class Point {
 /**
  * Definition for binary tree
  */
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int x) {
-        val = x;
-    }
-
-    TreeNode(int x, TreeNode l, TreeNode r) {
-        val = x;
-        left = l;
-        right = r;
-    }
-}
+//class TreeNode {
+//    int val;
+//    TreeNode left;
+//    TreeNode right;
+//
+//    TreeNode(int x) {
+//        val = x;
+//    }
+//
+//    TreeNode(int x, TreeNode l, TreeNode r) {
+//        val = x;
+//        left = l;
+//        right = r;
+//    }
+//}
 
 class Interval {
     int start;

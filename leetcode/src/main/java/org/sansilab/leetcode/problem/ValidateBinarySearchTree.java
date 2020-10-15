@@ -1,5 +1,6 @@
 package org.sansilab.leetcode.problem;
 
+import org.sansilab.leetcode.structure.TreeNode;
 import org.sansilab.leetcode.utils.JsonUtils;
 
 public class ValidateBinarySearchTree {
@@ -13,7 +14,7 @@ public class ValidateBinarySearchTree {
 		System.out.println(JsonUtils.toJson(output));
 	}
 	
-	public boolean inorder(TreeNode root,int min,int max){
+	public boolean inorder(TreeNode root, int min, int max){
 		if(root==null){
 			return true;
 		}
