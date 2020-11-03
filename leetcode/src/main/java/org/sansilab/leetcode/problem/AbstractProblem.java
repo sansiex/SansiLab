@@ -2,9 +2,13 @@ package org.sansilab.leetcode.problem;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import org.sansilab.leetcode.base.Answer;
 import org.sansilab.leetcode.parser.ParamParser;
 import org.sansilab.leetcode.utils.JsonUtils;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -52,9 +56,11 @@ public abstract class AbstractProblem {
             String inputStr = Joiner.on(", ").join(inputList.get(i));
             System.out.println("input: "+ inputStr);
             Object[] args = params.get(i);
+            beforeExecute(i, args);
             long s = System.currentTimeMillis();
             Object ret = execute(args);
             long e = System.currentTimeMillis();
+            afterExecute(i, args, ret);
             String output = JsonUtils.toJson(ret);
             System.out.println("output: "+ output);
             String expect = JsonUtils.toJson(outputList.get(i));
@@ -74,7 +80,45 @@ public abstract class AbstractProblem {
 
     abstract void init();
 
-    abstract Object execute(Object[] input);
+//    abstract Object execute(Object[] input);
+
+    protected void beforeExecute(int no, Object[] input){
+
+    }
+
+    protected void afterExecute(int no, Object[] input, Object output){
+
+    }
+
+    Object execute(Object[] input){
+        Method[] methods = this.getClass().getDeclaredMethods();
+        Method ans = null;
+        for (Method m:methods) {
+            if(m.isAnnotationPresent(Answer.class)) {
+                ans = m;
+                break;
+            } else {
+                continue;
+            }
+        }
+        if (ans == null) {
+            System.out.println("Cannot find answer method.");
+            return null;
+        }
+
+        try {
+            return ans.invoke(this, input);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    protected void addInputParsers(ParamParser... parsers){
+        parserList.addAll(Lists.newArrayList(parsers));
+    }
 
     protected void addInput(String... params){
         inputList.add(params);
