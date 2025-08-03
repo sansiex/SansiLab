@@ -1,7 +1,7 @@
 package org.sansilab.leetcode.problem;
 
+import org.sansilab.leetcode.base.AbstractDataStructure;
 import org.sansilab.leetcode.base.Operation;
-import org.sansilab.leetcode.parser.IntParser;
 
 import java.util.HashMap;
 import java.util.Map;

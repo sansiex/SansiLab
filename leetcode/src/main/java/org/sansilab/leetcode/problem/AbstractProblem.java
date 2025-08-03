@@ -1,11 +1,13 @@
 package org.sansilab.leetcode.problem;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.sansilab.leetcode.base.Answer;
 import org.sansilab.leetcode.parser.ParamParser;
 import org.sansilab.leetcode.utils.JsonUtils;
 
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -131,5 +133,32 @@ public abstract class AbstractProblem {
     protected void addOutput(String out) {
         Object val = outputParser.parse(out);
         outputList.add(val);
+    }
+
+    protected void addTestCaseFromFile(String path) {
+        try {
+            String basePath = "testcase/";
+            String filePath = basePath + path;
+            String fullPath = this.getClass().getClassLoader().getResource(filePath).toURI().getPath();
+            File file = new File(fullPath);
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            int inputParamSize = parserList.size();
+            String line = br.readLine();
+            while (!Strings.isNullOrEmpty(line)) {
+                String[] inputParams = new String[inputParamSize];
+                for (int i = 0; i < inputParamSize; i++) {
+                    inputParams[i] = line;
+                    line = br.readLine();
+                }
+                addInput(inputParams);
+                if (outputParser != null) {
+                    addOutput(line);
+                    line = br.readLine();
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage(), e);
+        }
     }
 }

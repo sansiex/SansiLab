@@ -1,10 +1,10 @@
-package org.sansilab.leetcode.problem;
+package org.sansilab.leetcode.base;
 
 import com.google.common.base.Joiner;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import org.sansilab.leetcode.base.Operation;
 import org.sansilab.leetcode.utils.JsonUtils;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -145,6 +145,6 @@ public abstract class AbstractDataStructure {
     }
 
     private static Object parseJsonElement(JsonElement ele, Class type) {
-        return JsonUtils.fromJson(ele.getAsString(), type);
+        return JsonUtils.fromJson(ele.toString(), type);
     }
 }
